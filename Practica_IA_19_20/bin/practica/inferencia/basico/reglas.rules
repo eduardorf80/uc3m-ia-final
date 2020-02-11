@@ -1,4 +1,4 @@
-// **RECUERDA** PRIORIDAD EN FUNCIÓN DEL ORDEN DE LAS REGLAS (LA SUPERIOR LA MÁS PRIORITARIA)
+// **RECUERDA** PRIORIDAD EN FUNCIï¿½N DEL ORDEN DE LAS REGLAS (LA SUPERIOR LA Mï¿½S PRIORITARIA)
 
 rule prioridad1 {
   declarations
@@ -7,5 +7,6 @@ rule prioridad1 {
     !h1.getNombre().equals("");		
   actions
  	h1.setNombre("FIN");
- 	// no se incluye "modified" para forzar que finalice la ejecución
+ 	// no se incluye "modified" para forzar que finalice la ejecuciï¿½n
 }
+pene
