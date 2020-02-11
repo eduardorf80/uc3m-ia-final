@@ -9,4 +9,3 @@ rule prioridad1 {
  	h1.setNombre("FIN");
  	// no se incluye "modified" para forzar que finalice la ejecuci�n
 }
-pene
