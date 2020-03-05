@@ -1,10 +1,10 @@
 package practica.objetos;
 
 /**
- * Clase creada como objeto base para la práctica 2019-2020 de Inteligencia Artificial, UC3M, Colmenarejo
+ * Clase creada como objeto base para la prï¿½ctica 2019-2020 de Inteligencia Artificial, UC3M, Colmenarejo
  *
  * @author Daniel Amigo Herrero
- * @author David Sánchez Pedroche
+ * @author David Sï¿½nchez Pedroche
  */
 
 public class Trabajador {
@@ -14,7 +14,9 @@ public class Trabajador {
 	int habPodar;
 	int habLimpiar;
 	int habReparar;
-	// AÑADIR LAS VARIABLES NECESARIAS
+	// Nuestras variables
+	Tipos_Herramientas herr;
+	Areas area;
 
 	/**
 	 * Constructor para el objeto
@@ -25,12 +27,14 @@ public class Trabajador {
 		this.habPodar    = habPodar;
 		this.habLimpiar  = habLimpiar;
 		this.habReparar  = habReparar;
-		// Añadir el estado inicial (estático) de las variables que se añadan
-		// Si se necesita añadir valores variables, como un ID, utilizar setters
+		// Aï¿½adir el estado inicial (estï¿½tico) de las variables que se aï¿½adan
+		// Si se necesita aï¿½adir valores variables, como un ID, utilizar setters
+		this.herr = null;
+		this.area = null ;
 	}
 	
 	/**
-	 * Añadir (si procede) métodos auxiliares, como getters o setters
+	 * Aï¿½adir (si procede) mï¿½todos auxiliares, como getters o setters
 	 */
 	public String getNombre() {
 		return nombre;
@@ -56,5 +60,63 @@ public class Trabajador {
 	public void setHabReparar(int habReparar) {
 		this.habReparar = habReparar;
 	}
+	public void setHerramienta(String herr){
+		switch (herr.toLowerCase()){
+			case "escoba":
+				this.herr = Tipos_Herramientas.Escoba;
+				break;
+			case "espirador":
+				this.herr = Tipos_Herramientas.Aspirador;
+				break;
+			case "caja de herramientas":
+				this.herr = Tipos_Herramientas.Caja_de_herramientas;
+				break;
+			case "destornillador":
+				this.herr = Tipos_Herramientas.Destornillador;
+				break;
+			case "motosierra":
+				this.herr = Tipos_Herramientas.Motosierra;
+				break;
+			case "tijeras de podar":
+				this.herr = Tipos_Herramientas.Tijeras_de_podar;
+				break;
 
+			default:
+				this.herr = null;
+		}
+	}
+	public  void setArea(String area){
+		switch (area.toLowerCase()){
+			case "a":
+				this.area = Areas.A;
+				break;
+			case "b":
+				this.area = Areas.B;
+				break;
+			case "c1":
+				this.area = Areas.C1;
+				break;
+			case "c2":
+				this.area = Areas.C2;
+				break;
+			case "j1":
+				this.area = Areas.J1;
+				break;
+			case "j2":
+				this.area = Areas.J2;
+				break;
+			case "j3":
+				this.area = Areas.J3;
+				break;
+			case "r":
+				this.area = Areas.R;
+				break;
+			case "u":
+				this.area = Areas.U;
+				break;
+			default:
+				this.area = null;
+
+		}
+	}
 }
