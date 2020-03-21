@@ -1,10 +1,10 @@
 package practica.objetos;
 
 /**
- * Clase creada como objeto base para la práctica 2019-2020 de Inteligencia Artificial, UC3M, Colmenarejo
+ * Clase creada como objeto base para la prï¿½ctica 2019-2020 de Inteligencia Artificial, UC3M, Colmenarejo
  *
  * @author Daniel Amigo Herrero
- * @author David Sánchez Pedroche
+ * @author David Sï¿½nchez Pedroche
  */
 
 public class Herramienta {
@@ -15,7 +15,7 @@ public class Herramienta {
 	double peso;
 	int mejora;
 	int cantidad;
-	// AÑADIR LAS VARIABLES NECESARIAS
+	// Aï¿½ADIR LAS VARIABLES NECESARIAS
 
 	/**
 	 * Constructor para el objeto
@@ -27,14 +27,14 @@ public class Herramienta {
 		this.peso = peso;
 		this.mejora = mejora;
 		this.cantidad = cantidad;
-		// Añadir el estado inicial (estático) de las variables que se añadan
-		// Si se necesita añadir valores variables, como un ID, utilizar setters
+		// Aï¿½adir el estado inicial (estï¿½tico) de las variables que se aï¿½adan
+		// Si se necesita aï¿½adir valores variables, como un ID, utilizar setters
 	}
 
 	/**
-	 * Métodos getters y setters
+	 * Mï¿½todos getters y setters
 	 */
-	// Añadir (si procede) métodos auxiliares, como getters o setters
+	// Aï¿½adir (si procede) mï¿½todos auxiliares, como getters o setters
 
 	public String getNombre() {
 		return nombre;
