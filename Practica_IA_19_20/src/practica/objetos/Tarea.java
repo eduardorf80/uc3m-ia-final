@@ -1,19 +1,19 @@
 package practica.objetos;
 
 /**
- * Clase creada como objeto base para la práctica 2019-2020 de Inteligencia Artificial, UC3M, Colmenarejo
+ * Clase creada como objeto base para la prï¿½ctica 2019-2020 de Inteligencia Artificial, UC3M, Colmenarejo
  *
  * @author Daniel Amigo Herrero
- * @author David Sánchez Pedroche
+ * @author David Sï¿½nchez Pedroche
  */
 
 public class Tarea {
 
 	// Variables del objeto Tarea
 	String tipo;
-	String area;
+	Areas area;
 	int unidades;
-	// AÑADIR LAS VARIABLES NECESARIAS
+	// Aï¿½ADIR LAS VARIABLES NECESARIAS
 
 
 	/**
@@ -21,16 +21,16 @@ public class Tarea {
 	 * NO MODIFICAR LA LLAMADA DEL CONSTRUCTOR
 	 */
 	public Tarea(String tipo, String area, int unidades) {
-		this.tipo = tipo;
-		this.area = area;
+		setTipo(tipo);
+		setArea(area);
 		this.unidades = unidades;
-		// Añadir el estado inicial (estático) de las variables que se añadan
-		// Si se necesita añadir valores variables, como un ID, utilizar setters
+		// Aï¿½adir el estado inicial (estï¿½tico) de las variables que se aï¿½adan
+		// Si se necesita aï¿½adir valores variables, como un ID, utilizar setters
 	}
 	
-	// Métodos getters y setters
+	// Mï¿½todos getters y setters
 	/**
-	 * Añadir (si procede) métodos auxiliares, como getters o setters
+	 * Aï¿½adir (si procede) mï¿½todos auxiliares, como getters o setters
 	 */
 	public String getTipo() {
 		return tipo;
@@ -38,11 +38,11 @@ public class Tarea {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	public String getArea() {
+	public Areas getArea() {
 		return area;
 	}
-	public void setArea(String area) {
-		this.area = area;
+	public void setArea(String Area) {
+		area = Areas.valueOf(Area);
 	}
 	public int getUnidades() {
 		return unidades;

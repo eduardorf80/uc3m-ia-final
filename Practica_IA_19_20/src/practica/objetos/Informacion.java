@@ -1,6 +1,6 @@
 package practica.objetos;
 
-public abstract class Costes {
+public abstract class Informacion {
     static byte costes[][] = new byte[][]{
             {0, 5, 10, 10, 15, 15, 20, 20, 25},
             {5, 0, 5, 5, 10, 10, 15, 15, 20},
@@ -13,8 +13,9 @@ public abstract class Costes {
             {25, 20, 15, 15, 10, 10, 5, 5, 0},
     };
 
-    public static byte getCoste(char Fila, char Columna) {
-        return 0;
+    public static byte getCoste(Areas Origen, Areas Destino) {
+        byte fila = getIndex(Origen) , columna = getIndex(Destino);
+        return ((fila == -1 || columna == -1)?-1:costes[fila][columna]);
     }
     private static byte getIndex(Areas Area){
         switch (Area) {
