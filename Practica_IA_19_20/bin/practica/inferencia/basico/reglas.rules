@@ -3,9 +3,13 @@
 rule prioridad1 {
   declarations
     practica.objetos.Herramienta h1;
+    practica.objetos.Trabajador t1;
+
   preconditions
-    !h1.getNombre().equals("");		
+    !h1.getNombre().equals("");
+    t1.getNombre().equals("Antonio");
+    t1.setHerramienta("");
   actions
  	h1.setNombre("FIN");
- 	// no se incluye "modified" para forzar que finalice la ejecuci�n
+ 	// no se incluye "modified" para forzar que finalice la ejecucion
 }
