@@ -1,0 +1,64 @@
+{
+  "tareas":{
+    "tareaPodar1":{
+      "tipo": "podar",
+      "area": "R",
+      "unidades": 0
+    },
+    "tareaPodar2":{
+      "tipo": "podar",
+      "area": "U",
+      "unidades": 0
+    },
+    "tareaPodar3":{
+      "tipo": "podar",
+      "area": "B",
+      "unidades": 0
+    },
+    "tareaPodar4":{
+      "tipo": "podar",
+      "area": "C1",
+      "unidades": 0
+    },
+    "tareaPodar5":{
+      "tipo": "podar",
+      "area": "C2",
+      "unidades": 5
+    },
+    "tareaPodar6":{
+      "tipo": "podar",
+      "area": "J1",
+      "unidades": 10
+    },
+    "tareaPodar7":{
+      "tipo": "podar",
+      "area": "J2",
+      "unidades": 2
+    },
+    "tareaPodar8":{
+      "tipo": "podar",
+      "area": "J3",
+      "unidades": 12
+    }
+    
+  },
+  "trabajadores":{
+    "trabajador1":{
+      "nombre":  "Antonio",
+      "podar":   5,
+      "limpiar": 5,
+      "reparar": 5
+    }
+  },
+  "herramientas":{
+    "herramienta1":{
+      "nombre":   "Tijeras de podar",
+      "trabajo":  "podar",
+      "peso":     0,
+      "mejora":   0,
+      "cantidad": 4
+    }
+  }
+  
+  
+}

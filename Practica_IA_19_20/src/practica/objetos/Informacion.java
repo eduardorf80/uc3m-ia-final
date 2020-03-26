@@ -2,6 +2,7 @@ package practica.objetos;
 
 public abstract class Informacion {
     static byte costes[][] = new byte[][]{
+            //R J3 A   C2  J2  C1   U  J1  B
             {0, 5, 10, 10, 15, 15, 20, 20, 25},
             {5, 0, 5, 5, 10, 10, 15, 15, 20},
             {10, 5, 0, 5, 5, 10, 10, 10, 15},
