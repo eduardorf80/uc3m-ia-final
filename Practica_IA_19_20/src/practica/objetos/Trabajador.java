@@ -74,7 +74,7 @@ public class Trabajador {
 		return herr;
 	}
 	public String getUso() {
-		/*switch (this.herr) {
+		switch (this.herr) {
 			case Escoba:
 			case Aspirador:
 				return "limpiar";
@@ -88,8 +88,7 @@ public class Trabajador {
 				return "reparar";
 			default:
 				return null;
-		}*/
-		return("podar");
+		}
 	}
 	public void setArea(String Area){
 		area = Areas.valueOf(Area);
