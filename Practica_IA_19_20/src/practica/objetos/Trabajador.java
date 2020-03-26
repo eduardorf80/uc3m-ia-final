@@ -29,7 +29,7 @@ public class Trabajador {
 		this.habReparar  = habReparar;
 		// A�adir el estado inicial (est�tico) de las variables que se a�adan
 		// Si se necesita a�adir valores variables, como un ID, utilizar setters
-		setHerramienta(null);
+		setHerramienta();
 		setArea("A");
 	}
 	
