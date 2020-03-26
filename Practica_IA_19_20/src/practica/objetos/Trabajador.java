@@ -70,11 +70,32 @@ public class Trabajador {
 	public void setHerramienta(){
 		herr = null;
 	}
-	public Tipos_Herramientas getHerr() {
+	public Tipos_Herramientas getHerramienta() {
 		return herr;
+	}
+	public String getUso() {
+		/*switch (this.herr) {
+			case Escoba:
+			case Aspirador:
+				return "limpiar";
+
+			case Motosierra:
+			case Tijeras_de_podar:
+				return "podar";
+
+			case Destornillador:
+			case Caja_de_herramientas:
+				return "reparar";
+			default:
+				return null;
+		}*/
+		return("podar");
 	}
 	public void setArea(String Area){
 		area = Areas.valueOf(Area);
+	}
+	public void setArea(Areas Area){
+		this.area = Area;
 	}
 	public Areas getArea() {
 		return area;

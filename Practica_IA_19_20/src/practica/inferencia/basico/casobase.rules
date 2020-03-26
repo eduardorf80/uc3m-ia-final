@@ -1,4 +1,5 @@
 // **RECUERDA** PRIORIDAD EN FUNCI�N DEL ORDEN DE LAS REGLAS (LA SUPERIOR LA M�S PRIORITARIA)
+//Un trabajor un tipo de herramienta y un tipo de tarea
 
 rule Trabajador_en_el_Almacen {
   declarations
@@ -28,11 +29,10 @@ rule Trabajador_con_Herramienta {
     !tr1.getNombre().equals("");
     !tr1.getArea().equals("A");
     ta1.getUnidades() > 0;
-    ta1.getTipo().equals(tr1.getUso());
+    ta1.getTipo().equals("podar");
   actions
     tr1.setArea(ta1.getArea());
     ta1.setUnidades(0);
     modified(ta1);
     modified(tr1);
 }
-
