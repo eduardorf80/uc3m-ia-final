@@ -13,6 +13,7 @@ rule Trabajador_en_el_Almacen {
     ta1.getUnidades() > 0;
   actions
     tr1.setHerramienta("Tijeras_de_podar");
+    tr1.setMinutosTrabajados(ta1.getArea(),ta1.getUnidades());
     tr1.setArea(ta1.getArea());
     ta1.setUnidades(0);
     modified(ta1);
@@ -30,6 +31,7 @@ rule Trabajador_con_Herramienta {
     ta1.getUnidades() > 0;
     ta1.getTipo().equals(tr1.getUso());
   actions
+    tr1.setMinutosTrabajados(ta1.getArea() , ta1.getUnidades());
     tr1.setArea(ta1.getArea());
     ta1.setUnidades(0);
     modified(ta1);

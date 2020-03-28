@@ -93,6 +93,9 @@ public class MainClass {
 		System.out.println("--------------------------------------------------------");
 		System.out.println("******************** FIN EJECUCION *********************");
 		System.out.println("--------------------------------------------------------");
+		for (Trabajador trabajador:trabajadores) {
+			System.out.println(trabajador.getNombre() + " ha trabajado " + trabajador.getMinutosTrabajados() + " minutos.");
+		}
 		printState(herramientas, trabajadores, tareas);
 
 		// Impresión de las métricas definidas

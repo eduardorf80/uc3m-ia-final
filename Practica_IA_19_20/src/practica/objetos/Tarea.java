@@ -23,7 +23,7 @@ public class Tarea {
 	public Tarea(String tipo, String area, int unidades) {
 		setTipo(tipo);
 		setArea(area);
-		this.unidades = unidades;
+		setUnidades(unidades);
 		// A�adir el estado inicial (est�tico) de las variables que se a�adan
 		// Si se necesita a�adir valores variables, como un ID, utilizar setters
 	}

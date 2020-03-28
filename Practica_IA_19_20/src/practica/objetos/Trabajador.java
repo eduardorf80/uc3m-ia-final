@@ -14,6 +14,7 @@ public class Trabajador {
 	int habPodar;
 	int habLimpiar;
 	int habReparar;
+	int minutosTrabajados;
 	// Nuestras variables
 	Tipos_Herramientas herr;
 	Areas area;
@@ -31,6 +32,7 @@ public class Trabajador {
 		// Si se necesita a�adir valores variables, como un ID, utilizar setters
 		setHerramienta();
 		setArea("A");
+		this.minutosTrabajados = 0;
 	}
 	
 	/**
@@ -64,6 +66,7 @@ public class Trabajador {
 	public void setHabReparar(int habReparar) {
 		this.habReparar = habReparar;
 	}
+
 	public void setHerramienta(String Herr){
 		herr = Tipos_Herramientas.valueOf(Herr);
 	}
@@ -73,6 +76,7 @@ public class Trabajador {
 	public Tipos_Herramientas getHerramienta() {
 		return herr;
 	}
+
 	public String getUso() {
 		switch (this.herr) {
 			case Escoba:
@@ -90,6 +94,7 @@ public class Trabajador {
 				return null;
 		}
 	}
+
 	public void setArea(String Area){
 		area = Areas.valueOf(Area);
 	}
@@ -98,5 +103,25 @@ public class Trabajador {
 	}
 	public Areas getArea() {
 		return area;
+	}
+
+	public void setMinutosTrabajados(Areas Area, int Unidades){
+		int minutos = 0 ;
+		switch (getUso()){
+			case  "podar":
+				minutos =(int)Math.ceil((Unidades / getHabPodar())*60);
+				break;
+			case  "limpiar":
+				minutos =(int)Math.ceil(Unidades / getHabLimpiar());
+				break;
+			case  "reparar":
+				minutos =(int)Math.ceil(Unidades / getHabReparar());
+				break;
+		}
+		this.minutosTrabajados += Informacion.getCoste(this.area , Area) + minutos;
+	}
+
+	public int getMinutosTrabajados() {
+		return minutosTrabajados;
 	}
 }
