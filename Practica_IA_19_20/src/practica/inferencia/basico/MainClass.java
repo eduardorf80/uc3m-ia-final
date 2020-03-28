@@ -37,7 +37,7 @@ public class MainClass {
 		else printDebug = 1; // Definir aquí el valor
 
 		//----------------------------- Se carga el problema -----------------------------//
-		String problemPath = "problema2.json"; // Problema en la misma ruta del paquete
+		String problemPath = "problema3.json"; // Problema en la misma ruta del paquete
 		InputStream isJSON;
 		// Si hay argumentos, se busca un fichero por parámetro. NO MODIFICAR
 		if (args.length > 0 && !args[0].equals("")) isJSON = new FileInputStream(args[0]);
@@ -85,7 +85,9 @@ public class MainClass {
 		System.out.println("****************** COMIENZO EJECUCION ******************");
 		System.out.println("--------------------------------------------------------");
 		printState(herramientas, trabajadores, tareas);
-
+		for (String herramienta: trabajadores.get(0).habilidades) {
+			System.out.println(herramienta);
+		}
 		// Ejecución del motor de inferencia con el problema
 		double executionTime = kb.run();
 

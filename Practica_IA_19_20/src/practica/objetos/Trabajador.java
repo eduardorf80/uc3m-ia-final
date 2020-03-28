@@ -18,6 +18,7 @@ public class Trabajador {
 	// Nuestras variables
 	Tipos_Herramientas herr;
 	Areas area;
+	public String [] habilidades = new String[3];
 
 	/**
 	 * Constructor para el objeto
@@ -32,6 +33,7 @@ public class Trabajador {
 		// Si se necesita a�adir valores variables, como un ID, utilizar setters
 		setHerramienta();
 		setArea("A");
+		setHabilidades();
 		this.minutosTrabajados = 0;
 	}
 	
@@ -48,6 +50,7 @@ public class Trabajador {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	public int getHabPodar() {
 		return habPodar;
 	}
@@ -66,6 +69,40 @@ public class Trabajador {
 	public void setHabReparar(int habReparar) {
 		this.habReparar = habReparar;
 	}
+	public String getHabMax(int Pos){
+		return habilidades[Pos];
+	}
+
+	public void setHabilidades() {
+		if(getHabPodar() >= getHabLimpiar() && getHabPodar() >= getHabReparar()){
+			habilidades[0] = "podar";
+			if(getHabLimpiar() >= getHabReparar()){
+				habilidades[1] = "limpiar";
+				habilidades[2] = "reparar";
+			}else {
+				habilidades[1] = "reparar";
+				habilidades[2] = "limpiar";
+			}
+		}else if(getHabLimpiar() >= getHabPodar() && getHabLimpiar() >= getHabReparar()){
+			habilidades[0] = "limpiar";
+			if(getHabPodar() >= getHabReparar()){
+				habilidades[1] = "poda";
+				habilidades[2] = "reparar";
+			}else {
+				habilidades[1] = "reparar";
+				habilidades[2] = "poda";
+			}
+		}else if(getHabReparar() >= getHabPodar() && getHabReparar() >= getHabLimpiar()){
+			habilidades[0] = "reparar";
+			if(getHabPodar() >= getHabLimpiar()){
+				habilidades[1] = "poda";
+				habilidades[2] = "limpiar";
+			}else {
+				habilidades[1] = "limpiar";
+				habilidades[2] = "poda";
+			}
+		}
+	}
 
 	public void setHerramienta(String Herr){
 		herr = Tipos_Herramientas.valueOf(Herr);
@@ -75,6 +112,18 @@ public class Trabajador {
 	}
 	public Tipos_Herramientas getHerramienta() {
 		return herr;
+	}
+	public String getHerramienta(int hab){
+		switch (habilidades[hab]){
+			case "podar":
+				return "Tijeras_de_podar";
+			case "limpiar":
+				return  "Escoba";
+			case "reparar":
+				return "Destornillador";
+			default:
+				return null;
+		}
 	}
 
 	public String getUso() {
@@ -112,15 +161,18 @@ public class Trabajador {
 				minutos =(int)Math.ceil((Unidades / getHabPodar())*60);
 				break;
 			case  "limpiar":
-				minutos =(int)Math.ceil(Unidades / getHabLimpiar());
+				minutos =(int)Math.ceil(Unidades / getHabLimpiar()*60);
 				break;
 			case  "reparar":
-				minutos =(int)Math.ceil(Unidades / getHabReparar());
+				minutos =(int)Math.ceil(Unidades / getHabReparar()*60);
 				break;
 		}
 		this.minutosTrabajados += Informacion.getCoste(this.area , Area) + minutos;
 	}
 
+	public void setMinutosTrabajados(String Area){
+		this.minutosTrabajados += Informacion.getCoste(this.area , Areas.valueOf(Area));
+	}
 	public int getMinutosTrabajados() {
 		return minutosTrabajados;
 	}
