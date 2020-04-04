@@ -1,5 +1,7 @@
 package practica.objetos;
 
+import java.util.ArrayList;
+
 /**
  * Clase creada como objeto base para la pr�ctica 2019-2020 de Inteligencia Artificial, UC3M, Colmenarejo
  *
@@ -19,6 +21,7 @@ public class Trabajador {
 	Tipos_Herramientas herr;
 	Areas area;
 	public String [] habilidades = new String[3];
+	ArrayList<Tarea> tareas;
 
 	/**
 	 * Constructor para el objeto
@@ -125,7 +128,6 @@ public class Trabajador {
 				return null;
 		}
 	}
-
 	public String getUso() {
 		switch (this.herr) {
 			case Escoba:
@@ -175,5 +177,23 @@ public class Trabajador {
 	}
 	public int getMinutosTrabajados() {
 		return minutosTrabajados;
+	}
+
+	public boolean isMin(Tarea Tarea){
+		int coste = Integer.MAX_VALUE;
+		Tarea minima = null;
+		if(!Tarea.getTipo().equals(getUso()) || Tarea.getUnidades() <= 0)
+			return false;
+		for(Tarea tarea : this.tareas){
+			if(tarea.getTipo().equals(getUso()) && tarea.getUnidades() > 0 && Informacion.getCoste(getArea(),tarea.getArea()) < coste){
+				coste = Informacion.getCoste(getArea(),tarea.getArea());
+				minima = tarea;
+			}
+		}
+		return Tarea.getArea().equals(minima.getArea());
+	}
+
+	public void setTareas(ArrayList<Tarea> Tareas){
+		this.tareas = Tareas;
 	}
 }

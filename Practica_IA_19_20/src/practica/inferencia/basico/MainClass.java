@@ -62,6 +62,9 @@ public class MainClass {
 		// Tareas
 		ArrayList<Tarea> tareas = readedTareas;
 
+		for(Trabajador trabajador : trabajadores){
+			trabajador.setTareas(tareas);
+		}
 		/**
 		 * No se permite modificar el código desde aquí
 		 */

@@ -6,7 +6,6 @@ rule Trabajador_en_el_Almacen {
     practica.objetos.Tarea ta1;
     practica.objetos.Herramienta h1;
   preconditions
-    !tr1.getNombre().equals("");
     tr1.getArea().toString().equals("A");
     tr1.getHerramienta() == null;
     ta1.getTipo().equals("podar");
@@ -26,8 +25,7 @@ rule Trabajador_con_Herramienta {
     practica.objetos.Tarea ta1;
     practica.objetos.Herramienta h1;
   preconditions
-    !tr1.getNombre().equals("");
-    !tr1.getArea().equals("A");
+    !tr1.getArea().toString().equals("A");
     ta1.getUnidades() > 0;
     ta1.getTipo().equals(tr1.getUso());
   actions
