@@ -1,6 +1,6 @@
 // **RECUERDA** PRIORIDAD EN FUNCI�N DEL ORDEN DE LAS REGLAS (LA SUPERIOR LA M�S PRIORITARIA)
 
-rule Trabajador_en_el_Almacen_habilidad_1 {
+rule Trabajador_1_en_el_Almacen_habilidad_1 {
   declarations
     practica.objetos.Trabajador tr1;
     practica.objetos.Tarea ta1;
@@ -14,7 +14,7 @@ rule Trabajador_en_el_Almacen_habilidad_1 {
     modified(tr1);
 }
 
-rule Trabajador_en_el_Almacen_habilidad_2 {
+rule Trabajador_1_en_el_Almacen_habilidad_2 {
   declarations
     practica.objetos.Trabajador tr1;
     practica.objetos.Tarea ta1;
@@ -27,7 +27,7 @@ rule Trabajador_en_el_Almacen_habilidad_2 {
     tr1.setHerramienta(tr1.getHerramienta(1));
     modified(tr1);
 }
-rule Trabajador_en_el_Almacen_habilidad_3 {
+rule Trabajador_1_en_el_Almacen_habilidad_3 {
   declarations
     practica.objetos.Trabajador tr1;
     practica.objetos.Tarea ta1;
@@ -38,6 +38,7 @@ rule Trabajador_en_el_Almacen_habilidad_3 {
     ta1.getUnidades() > 0;
   actions
     tr1.setHerramienta(tr1.getHerramienta(2));
+    ta1.setAsignada(true);
     modified(tr1);
 }
 rule Trabajador_con_Herramienta_Almacen{

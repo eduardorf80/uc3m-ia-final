@@ -185,11 +185,12 @@ public class Trabajador {
 		if(!Tarea.getTipo().equals(getUso()) || Tarea.getUnidades() <= 0)
 			return false;
 		for(Tarea tarea : this.tareas){
-			if(tarea.getTipo().equals(getUso()) && tarea.getUnidades() > 0 && Informacion.getCoste(getArea(),tarea.getArea()) < coste){
+			if(tarea.getTipo().equals(getUso()) && tarea.getUnidades() > 0 && Informacion.getCoste(getArea(),tarea.getArea()) < coste ){
 				coste = Informacion.getCoste(getArea(),tarea.getArea());
 				minima = tarea;
 			}
 		}
+		System.out.println(minima.getArea() + minima.getTipo());
 		return Tarea.getArea().equals(minima.getArea());
 	}
 
