@@ -14,7 +14,7 @@ public class Tarea {
 	Areas area;
 	int unidades;
 	// A�ADIR LAS VARIABLES NECESARIAS
-	boolean asignada;
+	String asignada;
 
 	/**
 	 * Constructor para el objeto
@@ -24,7 +24,7 @@ public class Tarea {
 		setTipo(tipo);
 		setArea(area);
 		setUnidades(unidades);
-		setAsignada(false);
+		setAsignada(null);
 		// A�adir el estado inicial (est�tico) de las variables que se a�adan
 		// Si se necesita a�adir valores variables, como un ID, utilizar setters
 	}
@@ -52,10 +52,16 @@ public class Tarea {
 		this.unidades = unidades;
 	}
 
-	public void setAsignada(boolean asignada) {
+	public void setAsignada(String asignada) {
 		this.asignada = asignada;
 	}
-	public boolean getAsignada() {
+	public String getAsignada() {
 		return asignada;
+	}
+	public boolean getAsignada(String nombre) {
+		if(nombre.equals("Bernardo")){
+			System.out.print("");
+		}
+		return asignada != null && !asignada.equals(nombre);
 	}
 }

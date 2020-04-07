@@ -160,15 +160,16 @@ public class Trabajador {
 		int minutos = 0 ;
 		switch (getUso()){
 			case  "podar":
-				minutos =(int)Math.ceil((Unidades / getHabPodar())*60);
+				minutos = (int)Math.ceil((float)(Unidades*60/getHabPodar()));
 				break;
 			case  "limpiar":
-				minutos =(int)Math.ceil(Unidades / getHabLimpiar()*60);
+				minutos =(int)Math.ceil((float)(Unidades*60/getHabLimpiar()));
 				break;
 			case  "reparar":
-				minutos =(int)Math.ceil(Unidades / getHabReparar()*60);
+				minutos =(int)Math.ceil((float)(Unidades*60/getHabReparar()));
 				break;
 		}
+		System.out.println("Trabajador " +getNombre() +" ha hecho " + getUso()+" "+ Unidades + " y ha tardado " + minutos);
 		this.minutosTrabajados += Informacion.getCoste(this.area , Area) + minutos;
 	}
 
@@ -182,18 +183,20 @@ public class Trabajador {
 	public boolean isMin(Tarea Tarea){
 		int coste = Integer.MAX_VALUE;
 		Tarea minima = null;
-		if(!Tarea.getTipo().equals(getUso()) || Tarea.getUnidades() <= 0)
-			return false;
-		for(Tarea tarea : this.tareas){
-			if(tarea.getTipo().equals(getUso()) && tarea.getUnidades() > 0 && Informacion.getCoste(getArea(),tarea.getArea()) < coste ){
-				coste = Informacion.getCoste(getArea(),tarea.getArea());
-				minima = tarea;
+		if( Tarea.getAsignada(getNombre()) || Tarea.getUnidades() <= 0 || !Tarea.getTipo().equals(getUso())){
+			if(getNombre().equals("Bernardo")){
+				System.out.print("");
 			}
+			return false;
 		}
-		System.out.println(minima.getArea() + minima.getTipo());
+		for(Tarea tarea : this.tareas){
+			if (!Tarea.getAsignada(getNombre()) && (tarea.getUnidades() > 0) && tarea.getTipo().equals(getUso()) && (Informacion.getCoste(getArea(), tarea.getArea()) < coste)) {
+					coste = Informacion.getCoste(getArea(), tarea.getArea());
+					minima = tarea;
+				}
+		}
 		return Tarea.getArea().equals(minima.getArea());
 	}
-
 	public void setTareas(ArrayList<Tarea> Tareas){
 		this.tareas = Tareas;
 	}

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import jeops.engine.KnowledgeBase;
 import practica.json.LectorJSON;
+import practica.objetos.Debugger;
 import practica.objetos.Herramienta;
 import practica.objetos.Tarea;
 import practica.objetos.Trabajador;
@@ -37,7 +38,7 @@ public class MainClass {
 		else printDebug = 1; // Definir aquí el valor
 
 		//----------------------------- Se carga el problema -----------------------------//
-		String problemPath = "problema4.json"; // Problema en la misma ruta del paquete
+		String problemPath = "problema.json"; // Problema en la misma ruta del paquete
 		InputStream isJSON;
 		// Si hay argumentos, se busca un fichero por parámetro. NO MODIFICAR
 		if (args.length > 0 && !args[0].equals("")) isJSON = new FileInputStream(args[0]);
@@ -82,15 +83,14 @@ public class MainClass {
 		for (int i = 0; i < herramientas.size(); i++) kb.join(herramientas.get(i));
 		for (int i = 0; i < trabajadores.size(); i++) kb.join(trabajadores.get(i));
 		for (int i = 0; i < tareas.size(); i++) kb.join(tareas.get(i));
+		Debugger debugger = new Debugger(herramientas,trabajadores,tareas);
+		kb.join(debugger);
 
 		// Impresión del estado final del problema		
 		System.out.println("--------------------------------------------------------");
 		System.out.println("****************** COMIENZO EJECUCION ******************");
 		System.out.println("--------------------------------------------------------");
 		printState(herramientas, trabajadores, tareas);
-		for (String herramienta: trabajadores.get(0).habilidades) {
-			System.out.println(herramienta);
-		}
 		// Ejecución del motor de inferencia con el problema
 		double executionTime = kb.run();
 

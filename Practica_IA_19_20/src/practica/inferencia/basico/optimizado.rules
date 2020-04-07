@@ -75,6 +75,7 @@ rule Trabajador_con_Herramienta {
     modified(tr1);
 }
 
+
 rule Trabajador_con_Herramienta_sin_tarea{
     declarations
         practica.objetos.Trabajador tr1;

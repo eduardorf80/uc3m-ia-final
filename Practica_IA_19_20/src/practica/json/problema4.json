@@ -123,12 +123,6 @@
     
   },
   "trabajadores":{
-    "trabajador1":{
-      "nombre":  "Antonio",
-      "podar":   4,
-      "limpiar": 4,
-      "reparar": 5
-    },
     "trabajador2":{
       "nombre":  "Bernardo",
       "podar":   6,
