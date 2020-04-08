@@ -55,18 +55,17 @@ rule Trabajador_con_Herramienta_Almacen{		//
         practica.objetos.Trabajador tr1;		//		
         practica.objetos.Tarea ta1;				//
         practica.objetos.Debugger logger;
-      preconditions								// Precondiciones:
+    preconditions								// Precondiciones:
         tr1.getArea().toString().equals("A");	// - El trabajador se tiene que encontrar en el almacén
         tr1.getHerramienta() != null;			// - Tiene que tener herramienta
-        !ta1.getAsignada(tr1.getNombre());
+        ta1.getDisponible(tr1.getNombre());
         ta1.getUnidades() > 0;					// - Las unidades de trabajo de la tarea tienen que ser mayores que 0.
         ta1.getTipo().equals(tr1.getUso());		// - La herramienta que tiene tiene que ser la necesaria para la tarea
         tr1.isMin(ta1);							// - La tarea tiene que estar a la mínima distancia posible
-      actions									// Acciones:
+    actions									    // Acciones:
         tr1.setMinutosTrabajados(ta1.getArea(),1);	//Calculamos los minutos que va a tardar en hacer una tarea el trabajador y se los añadimos a sus minutos trabajados
         tr1.setArea(ta1.getArea());				// Movemos al trabajador al área de la tarea
         ta1.setUnidades(ta1.getUnidades()-1);   // Ponemos las unidades de la tarea a 0
-        ta1.setAsignada(tr1.getNombre());
         modified(ta1);							//
         modified(tr1);							//
         logger.printTrabajadores();
@@ -80,15 +79,14 @@ rule Trabajador_con_Herramienta {				//
     practica.objetos.Debugger logger;
   preconditions									//	Precondiciones:
     !tr1.getArea().toString().equals("A");		// - El trabajador no se puede encontar en el almacén.
-    !ta1.getAsignada(tr1.getNombre());
+    ta1.getDisponible(tr1.getNombre());
     ta1.getUnidades() > 0;						// - La tarea nueva que cojamos tiejne que tener unidades mayores que 0
-    ta1.getTipo().equals(tr1.getUso());			// - La herramienta que tiene tiene que ser la necesaria para la tarea
+    ta1.getTipo().equals(tr1.getUso()); 		// - La herramienta que tiene tiene que ser la necesaria para la tarea
     tr1.isMin(ta1);								// - La tarea tiene que estar a la mínima distancia posible
   actions										// Acciones: 
     tr1.setMinutosTrabajados(ta1.getArea(),1);	//Calculamos los minutos que va a tardar en hacer una tarea el trabajador y se los añadimos a sus minutos trabajados
     tr1.setArea(ta1.getArea());					// Movemos al trabajador al área de la tarea
     ta1.setUnidades(ta1.getUnidades()-1);		// Ponemos las unidades de la tarea a 0
-    ta1.setAsignada(tr1.getNombre());
     modified(ta1);								//
     modified(tr1);								//
     logger.printTareas(false);

@@ -58,10 +58,7 @@ public class Tarea {
 	public String getAsignada() {
 		return asignada;
 	}
-	public boolean getAsignada(String nombre) {
-		if(nombre.equals("Bernardo")){
-			System.out.print("");
-		}
-		return asignada != null && !asignada.equals(nombre);
+	public boolean getDisponible(String nombre) {
+		return asignada == null || asignada.equals(nombre);
 	}
 }

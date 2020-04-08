@@ -89,20 +89,20 @@ public class Trabajador {
 		}else if(getHabLimpiar() >= getHabPodar() && getHabLimpiar() >= getHabReparar()){
 			habilidades[0] = "limpiar";
 			if(getHabPodar() >= getHabReparar()){
-				habilidades[1] = "poda";
+				habilidades[1] = "podar";
 				habilidades[2] = "reparar";
 			}else {
 				habilidades[1] = "reparar";
-				habilidades[2] = "poda";
+				habilidades[2] = "podar";
 			}
 		}else if(getHabReparar() >= getHabPodar() && getHabReparar() >= getHabLimpiar()){
 			habilidades[0] = "reparar";
 			if(getHabPodar() >= getHabLimpiar()){
-				habilidades[1] = "poda";
+				habilidades[1] = "podar";
 				habilidades[2] = "limpiar";
 			}else {
 				habilidades[1] = "limpiar";
-				habilidades[2] = "poda";
+				habilidades[2] = "podar";
 			}
 		}
 	}
@@ -202,18 +202,22 @@ public class Trabajador {
 	*/
 
 	public boolean isMin(Tarea Tarea){
-		if( Tarea.getUnidades() > 0 && Tarea.getTipo().equals(getUso()) && ( Tarea.getAsignada(getNombre()) || Tarea.getAsignada() == null) ){
+		if( Tarea.getUnidades() > 0 && Tarea.getTipo().equals(getUso()) &&  Tarea.getDisponible(getNombre()) ){
 			int minutos = Integer.MAX_VALUE;
 			Tarea tareaMinima = null;
-			for (Tarea tarea : this.tareas){
-				if(tarea.getUnidades() > 0 && tarea.getTipo().equals(getUso()) && ( tarea.getAsignada(getNombre()) || tarea.getAsignada() == null)){
+			for (Tarea tarea : tareas){
+				if(tarea.getUnidades() > 0 && tarea.getTipo().equals(getUso()) && tarea.getDisponible(getNombre()) ){
 					if (Informacion.getCoste(getArea(),tarea.getArea()) < minutos){
 						tareaMinima = tarea;
 						minutos = Informacion.getCoste(getArea(),tarea.getArea());
 					}
 				}
 			}
-			return tareaMinima != null && tareaMinima.getArea().equals(Tarea.getArea())&& tareaMinima.getTipo().equals(Tarea.getTipo());
+			if(Tarea == tareaMinima){
+				Tarea.setAsignada(getNombre());
+				return true;
+			}
+			return false;
 		}
 		return false;
 	}
