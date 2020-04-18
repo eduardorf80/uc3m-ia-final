@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import jeops.engine.KnowledgeBase;
 import practica.json.LectorJSON;
+import practica.objetos.Debugger;
 import practica.objetos.Herramienta;
 import practica.objetos.Tarea;
 import practica.objetos.Trabajador;
@@ -60,11 +61,15 @@ public class MainClass {
 		ArrayList<Trabajador>  trabajadores = readedTrabajadores;
 		// Tareas
 		ArrayList<Tarea> tareas = readedTareas;
-		
+
+		for(Trabajador trabajador : trabajadores){
+			trabajador.setTareas(tareas);
+		}
+
 		/**
 		 * No se permite modificar el código desde aquí
 		 */
-		
+
 		//----------------------------- Se crean los inicializan los objetos para ejecutar la solución -----------------------------//
 		// Generación del motor de inferencia. Se le introduce la dirección a las reglas y se indica un orden para las reglas (ordenadas por prioridad en el fichero. No se puede modificar)
 		InputStream isRules = MainClass.class.getResourceAsStream("reglas.rules"); // Se busca en el path de MainClass dicho fichero
@@ -78,6 +83,9 @@ public class MainClass {
 		for (int i = 0; i < herramientas.size(); i++) kb.join(herramientas.get(i));
 		for (int i = 0; i < trabajadores.size(); i++) kb.join(trabajadores.get(i));
 		for (int i = 0; i < tareas.size(); i++) kb.join(tareas.get(i));
+
+		Debugger debugger = new Debugger(herramientas,trabajadores,tareas);
+		kb.join(debugger);
 
 		// Impresión del estado final del problema		
 		System.out.println("--------------------------------------------------------");
@@ -93,6 +101,9 @@ public class MainClass {
 		System.out.println("******************** FIN EJECUCION *********************");
 		System.out.println("--------------------------------------------------------");
 		printState(herramientas, trabajadores, tareas);
+		for (Trabajador trabajador:trabajadores) {
+			System.out.println(trabajador.getNombre() + " ha trabajado " + trabajador.getMinutosTrabajados() + " minutos.");
+		}
 		
 		// Impresión de las métricas definidas
 		System.out.println("------------------------ METRICAS -----------------------");

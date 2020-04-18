@@ -23,6 +23,7 @@ public class Trabajador {
 	Areas area;
 	public String [] habilidades = new String[3];
 	ArrayList<Tarea> tareas;
+	Herramienta obj_herramienta;
 
 	/**
 	 * Constructor para el objeto
@@ -40,6 +41,7 @@ public class Trabajador {
 		setHabilidades();
 		this.minutosTrabajados = 0;
 		this.unidadesTrabajadas = 0;
+		this.obj_herramienta = null;
 	}
 	
 	/**
@@ -181,28 +183,6 @@ public class Trabajador {
 	public int getMinutosTrabajados() {
 		return minutosTrabajados;
 	}
-
-	/*
-	public boolean isMin(Tarea Tarea){
-		int coste = Integer.MAX_VALUE;
-		Tarea minima = null;
-		// Tarea.getAsignada(getNombre()) ||
-		if( Tarea.getUnidades() <= 0 || !Tarea.getTipo().equals(getUso())){
-			if(getNombre().equals("Bernardo")){
-				System.out.print("");
-			}
-			return false;
-		}
-		for(Tarea tarea : this.tareas){
-			if (!Tarea.getAsignada(getNombre()) && (tarea.getUnidades() > 0) && tarea.getTipo().equals(getUso()) && (Informacion.getCoste(getArea(), tarea.getArea()) < coste)) {
-					coste = Informacion.getCoste(getArea(), tarea.getArea());
-					minima = tarea;
-				}
-		}
-		return Tarea.getArea().equals(minima.getArea());
-	}
-	*/
-
 	public boolean isMin(Tarea Tarea){
 		if( Tarea.getUnidades() > 0 && Tarea.getTipo().equals(getUso()) &&  Tarea.getDisponible(getNombre()) ){
 			int minutos = Integer.MAX_VALUE;
@@ -239,5 +219,65 @@ public class Trabajador {
 	}
 	public int getUnidadesTrabajadas(){
 		return unidadesTrabajadas;
+	}
+
+	////////////////// MÉTODOS DE LA PARTE AVANZADA /////////////////////////////////
+
+	public void setMinutosTrabajadosAvanzado(Areas Area, int Unidades) {
+		int minutos = 0;
+		switch (getUso()) {
+			case "podar":
+				minutos = (int) Math.ceil((float) ((Unidades * 60) / (getHabPodar() + obj_herramienta.getMejora())));
+				break;
+			case "limpiar":
+				minutos = (int) Math.ceil((float) (Unidades * 60 / (getHabLimpiar() + obj_herramienta.getMejora())));
+				break;
+			case "reparar":
+				minutos = (int) Math.ceil((float) ((Unidades * 60) / (getHabReparar() + obj_herramienta.getMejora())));
+				break;
+		}
+		System.out.println("Trabajador " + getNombre() + " ha hecho " + getUso() + " " + Unidades + " y ha tardado " + minutos);
+		this.minutosTrabajados += Informacion.getCoste(this.area, Area) + minutos;
+	}
+
+	public void setHerramienta(Herramienta obj_herramienta) {
+		this.obj_herramienta = obj_herramienta;
+	}
+
+	public Herramienta getHerramientaAvanzado() {
+		return obj_herramienta;
+	}
+
+	public void setHerramientaAvanzado() {
+		this.obj_herramienta = null;
+	}
+
+	public boolean isAvailableAvanzado(){
+		for(Tarea tarea : tareas){
+			if(tarea.getUnidades() > 0 && tarea.getTipo().equals(obj_herramienta.getTrabajo()) && tarea.getDisponible(getNombre()))
+				return true;
+		}
+		return false;
+	}
+
+	public boolean isMinAvanzado(Tarea Tarea){
+		if( Tarea.getUnidades() > 0 && Tarea.getTipo().equals(obj_herramienta.getTrabajo()) &&  Tarea.getDisponible(getNombre()) ){
+			int minutos = Integer.MAX_VALUE;
+			Tarea tareaMinima = null;
+			for (Tarea tarea : tareas){
+				if(tarea.getUnidades() > 0 && tarea.getTipo().equals(obj_herramienta.getTrabajo()) && tarea.getDisponible(getNombre()) ){
+					if (Informacion.getCoste(getArea(),tarea.getArea()) < minutos){
+						tareaMinima = tarea;
+						minutos = Informacion.getCoste(getArea(),tarea.getArea());
+					}
+				}
+			}
+			if(Tarea == tareaMinima){
+				Tarea.setAsignada(getNombre());
+				return true;
+			}
+			return false;
+		}
+		return false;
 	}
 }

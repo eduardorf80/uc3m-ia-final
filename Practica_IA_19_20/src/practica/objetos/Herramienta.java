@@ -15,6 +15,7 @@ public class Herramienta {
 	double peso;
 	int mejora;
 	int cantidad;
+	int disponibles;
 	// A�ADIR LAS VARIABLES NECESARIAS
 
 	/**
@@ -29,6 +30,7 @@ public class Herramienta {
 		this.cantidad = cantidad;
 		// A�adir el estado inicial (est�tico) de las variables que se a�adan
 		// Si se necesita a�adir valores variables, como un ID, utilizar setters
+		this.disponibles = this.cantidad;
 	}
 
 	/**

@@ -121,6 +121,3 @@ rule Trabajador_con_Herramienta {				//
     logger.printTrabajadores();
     logger.printTareas(false);
 }
-
-
-
