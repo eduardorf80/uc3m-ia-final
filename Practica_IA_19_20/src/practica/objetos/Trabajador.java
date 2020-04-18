@@ -225,7 +225,7 @@ public class Trabajador {
 
 	public void setMinutosTrabajadosAvanzado(Areas Area, int Unidades) {
 		int minutos = 0;
-		switch (getUso()) {
+		switch (obj_herramienta.getTrabajo()) {
 			case "podar":
 				minutos = (int) Math.ceil((float) ((Unidades * 60) / (getHabPodar() + obj_herramienta.getMejora())));
 				break;
@@ -236,7 +236,7 @@ public class Trabajador {
 				minutos = (int) Math.ceil((float) ((Unidades * 60) / (getHabReparar() + obj_herramienta.getMejora())));
 				break;
 		}
-		System.out.println("Trabajador " + getNombre() + " ha hecho " + getUso() + " " + Unidades + " y ha tardado " + minutos);
+		System.out.println("Trabajador " + getNombre() + " ha hecho " + obj_herramienta.getTrabajo() + " " + Unidades + " y ha tardado " + minutos);
 		this.minutosTrabajados += Informacion.getCoste(this.area, Area) + minutos;
 	}
 

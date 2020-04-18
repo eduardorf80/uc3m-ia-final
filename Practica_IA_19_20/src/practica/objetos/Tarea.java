@@ -1,5 +1,7 @@
 package practica.objetos;
 
+import javax.sound.midi.Soundbank;
+
 /**
  * Clase creada como objeto base para la pr�ctica 2019-2020 de Inteligencia Artificial, UC3M, Colmenarejo
  *
