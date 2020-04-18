@@ -18,12 +18,10 @@ public class Trabajador {
 	int habReparar;
 	int minutosTrabajados;
 	int unidadesTrabajadas;
-	// Nuestras variables
-	Tipos_Herramientas herr;
 	Areas area;
 	public String [] habilidades = new String[3];
 	ArrayList<Tarea> tareas;
-	Herramienta obj_herramienta;
+	Herramienta herramienta;
 
 	/**
 	 * Constructor para el objeto
@@ -36,21 +34,16 @@ public class Trabajador {
 		this.habReparar  = habReparar;
 		// A�adir el estado inicial (est�tico) de las variables que se a�adan
 		// Si se necesita a�adir valores variables, como un ID, utilizar setters
-		setHerramienta();
 		setArea("A");
 		setHabilidades();
 		this.minutosTrabajados = 0;
 		this.unidadesTrabajadas = 0;
-		this.obj_herramienta = null;
+		setHerramienta();
 	}
 	
 	/**
 	 * A�adir (si procede) m�todos auxiliares, como getters o setters
 	 */
-	public Areas getTareaCercana(){
-		//Busca en funcion de herramienta actual y area
-		return null;
-	}
 	public String getNombre() {
 		return nombre;
 	}
@@ -110,20 +103,10 @@ public class Trabajador {
 			}
 		}
 	}
-
-	public void setHerramienta(String Herr){
-		herr = Tipos_Herramientas.valueOf(Herr);
-	}
-	public void setHerramienta(){
-		herr = null;
-	}
-	public Tipos_Herramientas getHerramienta() {
-		return herr;
-	}
 	public String getHerramienta(int hab){
 		switch (habilidades[hab]){
 			case "podar":
-				return "Tijeras_de_podar";
+				return "Tijeras de podar";
 			case "limpiar":
 				return  "Escoba";
 			case "reparar":
@@ -132,24 +115,6 @@ public class Trabajador {
 				return null;
 		}
 	}
-	public String getUso() {
-		switch (this.herr) {
-			case Escoba:
-			case Aspirador:
-				return "limpiar";
-
-			case Motosierra:
-			case Tijeras_de_podar:
-				return "podar";
-
-			case Destornillador:
-			case Caja_de_herramientas:
-				return "reparar";
-			default:
-				return null;
-		}
-	}
-
 	public void setArea(String Area){
 		area = Areas.valueOf(Area);
 	}
@@ -162,18 +127,18 @@ public class Trabajador {
 
 	public void setMinutosTrabajados(Areas Area, int Unidades) {
 		int minutos = 0;
-		switch (getUso()) {
+		switch (herramienta.getTrabajo()) {
 			case "podar":
-				minutos = (int) Math.ceil((float) (Unidades * 60 / getHabPodar()));
+				minutos = (int) Math.ceil((float) ((Unidades * 60) / (getHabPodar() + herramienta.getMejora())));
 				break;
 			case "limpiar":
-				minutos = (int) Math.ceil((float) (Unidades * 60 / getHabLimpiar()));
+				minutos = (int) Math.ceil((float) (Unidades * 60 / (getHabLimpiar() + herramienta.getMejora())));
 				break;
 			case "reparar":
-				minutos = (int) Math.ceil((float) (Unidades * 60 / getHabReparar()));
+				minutos = (int) Math.ceil((float) ((Unidades * 60) / (getHabReparar() + herramienta.getMejora())));
 				break;
 		}
-		System.out.println("Trabajador " + getNombre() + " ha hecho " + getUso() + " " + Unidades + " y ha tardado " + minutos);
+		System.out.println("Trabajador " + getNombre() + " ha hecho " + herramienta.getTrabajo() + " " + Unidades + " y ha tardado " + minutos);
 		this.minutosTrabajados += Informacion.getCoste(this.area, Area) + minutos;
 	}
 
@@ -183,12 +148,14 @@ public class Trabajador {
 	public int getMinutosTrabajados() {
 		return minutosTrabajados;
 	}
+
+
 	public boolean isMin(Tarea Tarea){
-		if( Tarea.getUnidades() > 0 && Tarea.getTipo().equals(getUso()) &&  Tarea.getDisponible(getNombre()) ){
+		if( Tarea.getUnidades() > 0 && Tarea.getTipo().equals(herramienta.getTrabajo()) &&  Tarea.getDisponible(getNombre()) ){
 			int minutos = Integer.MAX_VALUE;
 			Tarea tareaMinima = null;
 			for (Tarea tarea : tareas){
-				if(tarea.getUnidades() > 0 && tarea.getTipo().equals(getUso()) && tarea.getDisponible(getNombre()) ){
+				if(tarea.getUnidades() > 0 && tarea.getTipo().equals(herramienta.getTrabajo()) && tarea.getDisponible(getNombre()) ){
 					if (Informacion.getCoste(getArea(),tarea.getArea()) < minutos){
 						tareaMinima = tarea;
 						minutos = Informacion.getCoste(getArea(),tarea.getArea());
@@ -205,7 +172,7 @@ public class Trabajador {
 	}
 	public boolean isAvailable(){
 		for(Tarea tarea : tareas){
-			if(tarea.getUnidades() > 0 && tarea.getTipo().equals(getUso()) && tarea.getDisponible(getNombre()))
+			if(tarea.getUnidades() > 0 && tarea.getTipo().equals(herramienta.getTrabajo()) && tarea.getDisponible(getNombre()))
 				return true;
 		}
 		return false;
@@ -221,63 +188,14 @@ public class Trabajador {
 		return unidadesTrabajadas;
 	}
 
-	////////////////// MÉTODOS DE LA PARTE AVANZADA /////////////////////////////////
-
-	public void setMinutosTrabajadosAvanzado(Areas Area, int Unidades) {
-		int minutos = 0;
-		switch (obj_herramienta.getTrabajo()) {
-			case "podar":
-				minutos = (int) Math.ceil((float) ((Unidades * 60) / (getHabPodar() + obj_herramienta.getMejora())));
-				break;
-			case "limpiar":
-				minutos = (int) Math.ceil((float) (Unidades * 60 / (getHabLimpiar() + obj_herramienta.getMejora())));
-				break;
-			case "reparar":
-				minutos = (int) Math.ceil((float) ((Unidades * 60) / (getHabReparar() + obj_herramienta.getMejora())));
-				break;
-		}
-		System.out.println("Trabajador " + getNombre() + " ha hecho " + obj_herramienta.getTrabajo() + " " + Unidades + " y ha tardado " + minutos);
-		this.minutosTrabajados += Informacion.getCoste(this.area, Area) + minutos;
+	public void setHerramienta(Herramienta Herramienta) {
+		this.herramienta = Herramienta;
+	}
+	public void setHerramienta(){
+		this.herramienta = null;
+	}
+	public Herramienta getHerramienta() {
+		return herramienta;
 	}
 
-	public void setHerramienta(Herramienta obj_herramienta) {
-		this.obj_herramienta = obj_herramienta;
-	}
-
-	public Herramienta getHerramientaAvanzado() {
-		return obj_herramienta;
-	}
-
-	public void setHerramientaAvanzado() {
-		this.obj_herramienta = null;
-	}
-
-	public boolean isAvailableAvanzado(){
-		for(Tarea tarea : tareas){
-			if(tarea.getUnidades() > 0 && tarea.getTipo().equals(obj_herramienta.getTrabajo()) && tarea.getDisponible(getNombre()))
-				return true;
-		}
-		return false;
-	}
-
-	public boolean isMinAvanzado(Tarea Tarea){
-		if( Tarea.getUnidades() > 0 && Tarea.getTipo().equals(obj_herramienta.getTrabajo()) &&  Tarea.getDisponible(getNombre()) ){
-			int minutos = Integer.MAX_VALUE;
-			Tarea tareaMinima = null;
-			for (Tarea tarea : tareas){
-				if(tarea.getUnidades() > 0 && tarea.getTipo().equals(obj_herramienta.getTrabajo()) && tarea.getDisponible(getNombre()) ){
-					if (Informacion.getCoste(getArea(),tarea.getArea()) < minutos){
-						tareaMinima = tarea;
-						minutos = Informacion.getCoste(getArea(),tarea.getArea());
-					}
-				}
-			}
-			if(Tarea == tareaMinima){
-				Tarea.setAsignada(getNombre());
-				return true;
-			}
-			return false;
-		}
-		return false;
-	}
 }

@@ -10,7 +10,7 @@ rule Trabajador_en_el_Almacen_habilidad_1{		//
     practica.objetos.Debugger logger;
   preconditions									// Precondiciones:
     tr1.getArea().toString().equals("A");		// - El trabajador se tiene que encontrar en el almacén
-    tr1.getHerramientaAvanzado() == null;				// - No tiene que tener herramienta
+    tr1.getHerramientaAvanzado() == null;		// - No tiene que tener herramienta
     ta1.getTipo().equals(tr1.getHabMax(0));		// - La tarea tiene que ser del tipo de la habilidad máxima del trabajador
     ta1.getUnidades() > 0;						// - Las unidades de trabajo de la tarea tienen que ser mayores que 0.
     ta1.getAsignada() == null;

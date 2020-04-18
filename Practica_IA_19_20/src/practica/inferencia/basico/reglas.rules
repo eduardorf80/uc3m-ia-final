@@ -2,57 +2,60 @@
 
 //REGLAS QUE ACTIVAR CUANDO EL TRABAJADOR ESTÁ EN EL ALMACÉN
 
-rule Trabajador_en_el_Almacen_habilidad_1 {		//
+rule Trabajador_en_el_Almacen_habilidad_1{		//
   declarations									// Declaramos: Trabajador y Tarea
     practica.objetos.Trabajador tr1;			//
     practica.objetos.Tarea ta1;					//
+    practica.objetos.Herramienta h1;
     practica.objetos.Debugger logger;
   preconditions									// Precondiciones:
     tr1.getArea().toString().equals("A");		// - El trabajador se tiene que encontrar en el almacén
-    tr1.getHerramienta() == null;				// - No tiene que tener herramienta
-    ta1.getTipo().equals(tr1.getHabMax(0));		// - La tarea tiene que ser del tipo de la habilidad máxima del trabajador
-    ta1.getUnidades() > 0;						// - Las unidades de trabajo de la tarea tienen que ser mayores que 0.
-    ta1.getAsignada() == null;
+    tr1.getHerramienta() == null;		        // - No tiene que tener herramienta
+    ta1.isValid(tr1.getHabMax(0));		        // - La tarea tiene que ser del tipo de la habilidad máxima del trabajador las unidades de trabajo de la tarea tienen que ser mayores que 0 y no tiene que estar asignada.
+    ta1.getTipo().equals(h1.getTrabajo());
+    h1.getNombre().equals(tr1.getHerramienta(0));
   actions										// Acciones:
-    tr1.setHerramienta(tr1.getHerramienta(0));	// Asignamos la herramienta al trabajador
+    tr1.setHerramienta(h1);	                    // Asignamos la herramienta al trabajador
     modified(tr1);								//
     logger.printTrabajadores();
     logger.printTareas(false);
 }
 
 
-rule Trabajador_en_el_Almacen_habilidad_2 {	//
+rule Trabajador_en_el_Almacen_habilidad_2{		//
   declarations									// Declaramos: Trabajador y Tarea
     practica.objetos.Trabajador tr1;			//
     practica.objetos.Tarea ta1;					//
+    practica.objetos.Herramienta h1;
     practica.objetos.Debugger logger;
   preconditions									// Precondiciones:
     tr1.getArea().toString().equals("A");		// - El trabajador se tiene que encontrar en el almacén
-    tr1.getHerramienta() == null;				// - No tiene que tener herramienta
-    ta1.getTipo().equals(tr1.getHabMax(1));		// - La tarea tiene que ser del tipo de la segunda habilidad máxima del trabajador
-    ta1.getUnidades() > 0;						// - Las unidades de trabajo de la tarea tienen que ser mayores que 0.
-    ta1.getAsignada() == null;
+    tr1.getHerramienta() == null;		        // - No tiene que tener herramienta
+    ta1.isValid(tr1.getHabMax(1));		        // - La tarea tiene que ser del tipo de la habilidad 2ª máxima del trabajador las unidades de trabajo de la tarea tienen que ser mayores que 0 y no tiene que estar asignada.
+    ta1.getTipo().equals(h1.getTrabajo());
+    h1.getNombre().equals(tr1.getHerramienta(1));
   actions										// Acciones:
-    tr1.setHerramienta(tr1.getHerramienta(1));	// Asignamos la herramienta al trabajador
+    tr1.setHerramienta(h1);	                    // Asignamos la herramienta al trabajador
     modified(tr1);								//
     logger.printTrabajadores();
     logger.printTareas(false);
 }
 
 
-rule Trabajador_en_el_Almacen_habilidad_3 {	//
+rule Trabajador_en_el_Almacen_habilidad_3{		//
   declarations									// Declaramos: Trabajador y Tarea
     practica.objetos.Trabajador tr1;			//
     practica.objetos.Tarea ta1;					//
+    practica.objetos.Herramienta h1;
     practica.objetos.Debugger logger;
   preconditions									// Precondiciones:
     tr1.getArea().toString().equals("A");		// - El trabajador se tiene que encontrar en el almacén
-    tr1.getHerramienta() == null;				// - No tiene que tener herramienta
-    ta1.getTipo().equals(tr1.getHabMax(2));		// - La tarea tiene que ser del tipo de la tercera habilidad máxima del trabajador
-    ta1.getUnidades() > 0;						// - Las unidades de trabajo de la tarea tienen que ser mayores que 0.
-    ta1.getAsignada() == null;
+    tr1.getHerramienta() == null;		        // - No tiene que tener herramienta
+    ta1.isValid(tr1.getHabMax(2));		        // - La tarea tiene que ser del tipo de la 3ª habilidad máxima del trabajador las unidades de trabajo de la tarea tienen que ser mayores que 0 y no tiene que estar asignada.
+    ta1.getTipo().equals(h1.getTrabajo());
+    h1.getNombre().equals(tr1.getHerramienta(2));
   actions										// Acciones:
-    tr1.setHerramienta(tr1.getHerramienta(2));	// Asignamos la herramienta al trabajador
+    tr1.setHerramienta(h1);	                    // Asignamos la herramienta al trabajador
     modified(tr1);								//
     logger.printTrabajadores();
     logger.printTareas(false);
@@ -69,7 +72,7 @@ rule Trabajador_con_Herramienta_Almacen{		//
         tr1.getHerramienta() != null;			// - Tiene que tener herramienta
         ta1.getDisponible(tr1.getNombre());
         ta1.getUnidades() > 0;					// - Las unidades de trabajo de la tarea tienen que ser mayores que 0.
-        ta1.getTipo().equals(tr1.getUso());		// - La herramienta que tiene tiene que ser la necesaria para la tarea
+        ta1.getTipo().equals(tr1.getHerramienta().getTrabajo());		// - La herramienta que tiene tiene que ser la necesaria para la tarea
         tr1.isMin(ta1);							// - La tarea tiene que estar a la mínima distancia posible
     actions									    // Acciones:
         tr1.setMinutosTrabajados(ta1.getArea(),1);	//Calculamos los minutos que va a tardar en hacer una tarea el trabajador y se los añadimos a sus minutos trabajados
@@ -93,7 +96,7 @@ rule Trabajador_con_Herramienta_sin_tarea{		//
     actions										// Acciones:
         tr1.setMinutosTrabajados("A");			// Calculamos el coste de ir al almacén, y se lo añadimos a los minutos trabajados del trabajador
         tr1.setArea("A");						// Movemos al trabajador al almacén
-        tr1.setHerramienta();					// Le quitamos la herramienta al trabajador, se la ponemos a null
+        tr1.setHerramienta();				// Le quitamos la herramienta al trabajador, se la ponemos a null
         modified(tr1);							//
         logger.printTrabajadores();
         logger.printTareas(false);
@@ -109,7 +112,7 @@ rule Trabajador_con_Herramienta {				//
     !tr1.getArea().toString().equals("A");		// - El trabajador no se puede encontar en el almacén.
     ta1.getDisponible(tr1.getNombre());
     ta1.getUnidades() > 0;						// - La tarea nueva que cojamos tiejne que tener unidades mayores que 0
-    ta1.getTipo().equals(tr1.getUso()); 		// - La herramienta que tiene tiene que ser la necesaria para la tarea
+    ta1.getTipo().equals(tr1.getHerramienta().getTrabajo()); 		// - La herramienta que tiene tiene que ser la necesaria para la tarea
     tr1.isMin(ta1);								// - La tarea tiene que estar a la mínima distancia posible
   actions										// Acciones:
     tr1.setMinutosTrabajados(ta1.getArea(),1);	//Calculamos los minutos que va a tardar en hacer una tarea el trabajador y se los añadimos a sus minutos trabajados
