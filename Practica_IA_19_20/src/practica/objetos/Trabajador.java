@@ -17,6 +17,7 @@ public class Trabajador {
 	int habLimpiar;
 	int habReparar;
 	int minutosTrabajados;
+	int unidadesTrabajadas;
 	// Nuestras variables
 	Tipos_Herramientas herr;
 	Areas area;
@@ -38,6 +39,7 @@ public class Trabajador {
 		setArea("A");
 		setHabilidades();
 		this.minutosTrabajados = 0;
+		this.unidadesTrabajadas = 0;
 	}
 	
 	/**
@@ -156,21 +158,21 @@ public class Trabajador {
 		return area;
 	}
 
-	public void setMinutosTrabajados(Areas Area, int Unidades){
-		int minutos = 0 ;
-		switch (getUso()){
-			case  "podar":
-				minutos = (int)Math.ceil((float)(Unidades*60/getHabPodar()));
+	public void setMinutosTrabajados(Areas Area, int Unidades) {
+		int minutos = 0;
+		switch (getUso()) {
+			case "podar":
+				minutos = (int) Math.ceil((float) (Unidades * 60 / getHabPodar()));
 				break;
-			case  "limpiar":
-				minutos =(int)Math.ceil((float)(Unidades*60/getHabLimpiar()));
+			case "limpiar":
+				minutos = (int) Math.ceil((float) (Unidades * 60 / getHabLimpiar()));
 				break;
-			case  "reparar":
-				minutos =(int)Math.ceil((float)(Unidades*60/getHabReparar()));
+			case "reparar":
+				minutos = (int) Math.ceil((float) (Unidades * 60 / getHabReparar()));
 				break;
 		}
-		System.out.println("Trabajador " +getNombre() +" ha hecho " + getUso()+" "+ Unidades + " y ha tardado " + minutos);
-		this.minutosTrabajados += Informacion.getCoste(this.area , Area) + minutos;
+		System.out.println("Trabajador " + getNombre() + " ha hecho " + getUso() + " " + Unidades + " y ha tardado " + minutos);
+		this.minutosTrabajados += Informacion.getCoste(this.area, Area) + minutos;
 	}
 
 	public void setMinutosTrabajados(String Area){
@@ -221,8 +223,21 @@ public class Trabajador {
 		}
 		return false;
 	}
+	public boolean isAvailable(){
+		for(Tarea tarea : tareas){
+			if(tarea.getUnidades() > 0 && tarea.getTipo().equals(getUso()) && tarea.getDisponible(getNombre()))
+				return true;
+		}
+		return false;
+	}
 
 	public void setTareas(ArrayList<Tarea> Tareas){
 		this.tareas = Tareas;
+	}
+	public void setUnidadesTrabajadas(int Unidades){
+		unidadesTrabajadas += Unidades;
+	}
+	public int getUnidadesTrabajadas(){
+		return unidadesTrabajadas;
 	}
 }
