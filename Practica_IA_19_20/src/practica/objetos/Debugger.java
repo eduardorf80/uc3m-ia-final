@@ -46,7 +46,8 @@ public class Debugger {
     }
     public void printHerramientas(){
         for (Herramienta herramienta: herramientas){
-            System.out.println(ANSI_GREEN + "\t"+ "La herramienta " + herramienta.getNombre() + " sirve para " + herramienta.getTrabajo() + " de la cual hay " + herramienta.getCantidad() + " unidades y da una mejora de " + herramienta.getMejora() + " y pesa " + herramienta.getPeso() + ANSI_RESET);
+            System.out.println(ANSI_GREEN + "\t"+ "La herramienta " + String.format("%-20s",herramienta.getNombre()) + " sirve para " + String.format("%-7s",herramienta.getTrabajo()) + " de la cual hay " + herramienta.getCantidad() + " unidades y da una mejora de " + herramienta.getMejora() + " y pesa " + herramienta.getPeso() + ANSI_RESET);
         }
+        System.out.println();
     }
 }
