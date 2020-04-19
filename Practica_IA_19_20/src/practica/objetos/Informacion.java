@@ -14,9 +14,11 @@ public abstract class Informacion {
             {25, 20, 15, 15, 10, 10, 5, 5, 0},
     };
 
-    public static byte getCoste(Areas Origen, Areas Destino) {
+    public static byte getCoste(Areas Origen, Areas Destino, int peso) {
         byte fila = getIndex(Origen) , columna = getIndex(Destino);
-        return ((fila == -1 || columna == -1)?-1:costes[fila][columna]);
+        if(!(fila == -1 || columna == -1))
+            return (byte)(costes[fila][columna]*((5+peso)/5));
+        return -1;
     }
     private static byte getIndex(Areas Area){
         switch (Area) {
