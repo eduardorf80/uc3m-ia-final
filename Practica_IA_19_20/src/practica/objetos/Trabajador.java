@@ -139,11 +139,11 @@ public class Trabajador {
 				break;
 		}
 		System.out.println("Trabajador " + getNombre() + " ha hecho " + herramienta.getTrabajo() + " " + Unidades + " y ha tardado " + minutos);
-		this.minutosTrabajados += Informacion.getCoste(this.area, Area) + minutos;
+		this.minutosTrabajados += Informacion.getCoste(this.area, Area, herramienta.getPeso()) + minutos;
 	}
 
 	public void setMinutosTrabajados(String Area){
-		this.minutosTrabajados += Informacion.getCoste(this.area , Areas.valueOf(Area));
+		this.minutosTrabajados += Informacion.getCoste(this.area , Areas.valueOf(Area), herramienta.getPeso());
 	}
 	public int getMinutosTrabajados() {
 		return minutosTrabajados;
@@ -156,9 +156,9 @@ public class Trabajador {
 			Tarea tareaMinima = null;
 			for (Tarea tarea : tareas){
 				if(tarea.getUnidades() > 0 && tarea.getTipo().equals(herramienta.getTrabajo()) && tarea.getDisponible(getNombre()) ){
-					if (Informacion.getCoste(getArea(),tarea.getArea()) < minutos){
+					if (Informacion.getCoste(getArea(),tarea.getArea(), herramienta.getPeso()) < minutos){
 						tareaMinima = tarea;
-						minutos = Informacion.getCoste(getArea(),tarea.getArea());
+						minutos = Informacion.getCoste(getArea(),tarea.getArea(), herramienta.getPeso());
 					}
 				}
 			}

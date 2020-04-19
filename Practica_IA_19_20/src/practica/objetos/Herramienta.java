@@ -12,7 +12,7 @@ public class Herramienta {
 	// Variables del objeto Herramienta
 	String nombre;
 	String trabajo;
-	double peso;
+	int peso;
 	int mejora;
 	int cantidad;
 	int disponibles;
@@ -22,7 +22,7 @@ public class Herramienta {
 	 * Constructor para el objeto
 	 * NO MODIFICAR LA LLAMADA DEL CONSTRUCTOR
 	 */
-	public Herramienta(String nombre, String trabajo, double peso, int mejora, int cantidad) {
+	public Herramienta(String nombre, String trabajo, int peso, int mejora, int cantidad) {
 		this.nombre = nombre;
 		this.trabajo = trabajo;
 		this.peso = peso;
@@ -30,7 +30,7 @@ public class Herramienta {
 		this.cantidad = cantidad;
 		// A�adir el estado inicial (est�tico) de las variables que se a�adan
 		// Si se necesita a�adir valores variables, como un ID, utilizar setters
-		this.disponibles = this.cantidad;
+		this.disponibles = cantidad;
 	}
 
 	/**
@@ -50,10 +50,10 @@ public class Herramienta {
 	public void setTrabajo(String trabajo) {
 		this.trabajo = trabajo;
 	}
-	public double getPeso() {
+	public int getPeso() {
 		return peso;
 	}
-	public void setPeso(double peso) {
+	public void setPeso(int peso) {
 		this.peso = peso;
 	}
 	public int getMejora() {
@@ -67,6 +67,17 @@ public class Herramienta {
 	}
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
-	}	
+	}
 
+	public int getDisponibles() {
+		return disponibles;
+	}
+
+	public void cogerHerramienta(){
+		this.disponibles -= 1;
+	}
+
+	public void dejarHerramienta(){
+		this.disponibles += 1;
+	}
 }
