@@ -63,4 +63,8 @@ public class Tarea {
 	public boolean getDisponible(String nombre) {
 		return asignada == null || asignada.equals(nombre);
 	}
+
+	public boolean isValid(String Tipo){
+		return getUnidades() > 0 && getAsignada() == null && getTipo().equals(Tipo);
+	}
 }

@@ -25,7 +25,7 @@ public class Debugger {
     public void printTrabajadores(){
         System.out.println(ANSI_CYAN + "\nEstado actual de los trabajadores\n" + ANSI_RESET);
         for(Trabajador trabajador : trabajadores){
-            System.out.println(ANSI_BLUE + "\t" + String.format("%-8s",trabajador.getNombre()) + " lleva trabajadas " + String.format("%-2s",trabajador.getUnidadesTrabajadas()) + " unidades que corresponden a " + String.format("%-3s",trabajador.getMinutosTrabajados()) + " minutos, tiene " + String.format("%-20s",trabajador.getHerramienta()) + " y se encuentra en " + trabajador.getArea() + ANSI_RESET);
+            System.out.println(ANSI_BLUE + "\t" + String.format("%-8s",trabajador.getNombre()) + " lleva trabajadas " + String.format("%-2s",trabajador.getUnidadesTrabajadas()) + " unidades que corresponden a " + String.format("%-3s",trabajador.getMinutosTrabajados()) + " minutos, " + String.format("%-20s",(trabajador.getHerramienta()==null)?"no tiene herramienta":"tiene "+trabajador.getHerramienta().getNombre()) + " y se encuentra en " + trabajador.getArea() + ANSI_RESET);
         }
         System.out.println();
     }
