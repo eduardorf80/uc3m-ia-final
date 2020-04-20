@@ -102,7 +102,7 @@ public class MainClass {
 		System.out.println("--------------------------------------------------------");
 		printState(herramientas, trabajadores, tareas);
 		for (Trabajador trabajador:trabajadores) {
-			System.out.println(trabajador.getNombre() + " ha trabajado " + trabajador.getMinutosTrabajados() + " minutos.");
+			System.out.println(trabajador.getNombre() + " ha trabajado " + (int)Math.round(trabajador.getMinutosTrabajados()) + " minutos, que son "+ String.format("%.2f", trabajador.getMinutosTrabajados() / 60) + " horas.");
 		}
 		
 		// Impresión de las métricas definidas

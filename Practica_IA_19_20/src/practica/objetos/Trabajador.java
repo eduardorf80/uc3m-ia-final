@@ -16,7 +16,7 @@ public class Trabajador {
 	int habPodar;
 	int habLimpiar;
 	int habReparar;
-	int minutosTrabajados;
+	double minutosTrabajados;
 	int unidadesTrabajadas;
 	Areas area;
 	public String [] habilidades = new String[3];
@@ -126,16 +126,16 @@ public class Trabajador {
 	}
 
 	public void setMinutosTrabajados(Areas Area, int Unidades) {
-		int minutos = 0;
+		double minutos = 0;
 		switch (herramienta.getTrabajo()) {
 			case "podar":
-				minutos = (int) Math.ceil((float) ((Unidades * 60) / (getHabPodar() + herramienta.getMejora())));
+				minutos = (double)(Unidades * 60) / (getHabPodar() + herramienta.getMejora());
 				break;
 			case "limpiar":
-				minutos = (int) Math.ceil((float) (Unidades * 60 / (getHabLimpiar() + herramienta.getMejora())));
+				minutos = (double)(Unidades * 60) / (getHabLimpiar() + herramienta.getMejora());
 				break;
 			case "reparar":
-				minutos = (int) Math.ceil((float) ((Unidades * 60) / (getHabReparar() + herramienta.getMejora())));
+				minutos = (double)(Unidades * 60) / (getHabReparar() + herramienta.getMejora());
 				break;
 		}
 		System.out.println("Trabajador " + getNombre() + " ha hecho " + herramienta.getTrabajo() + " " + Unidades + " y ha tardado " + minutos);
@@ -145,14 +145,14 @@ public class Trabajador {
 	public void setMinutosTrabajados(String Area){
 		this.minutosTrabajados += Informacion.getCoste(this.area , Areas.valueOf(Area), herramienta.getPeso());
 	}
-	public int getMinutosTrabajados() {
+	public double getMinutosTrabajados() {
 		return minutosTrabajados;
 	}
 
 
 	public boolean isMin(Tarea Tarea){
 		if( Tarea.getUnidades() > 0 && Tarea.getTipo().equals(herramienta.getTrabajo()) &&  Tarea.getDisponible(getNombre()) ){
-			int minutos = Integer.MAX_VALUE;
+			double minutos = Double.MAX_VALUE;
 			Tarea tareaMinima = null;
 			for (Tarea tarea : tareas){
 				if(tarea.getUnidades() > 0 && tarea.getTipo().equals(herramienta.getTrabajo()) && tarea.getDisponible(getNombre()) ){

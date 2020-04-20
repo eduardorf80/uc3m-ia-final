@@ -12,7 +12,7 @@ public class Herramienta {
 	// Variables del objeto Herramienta
 	String nombre;
 	String trabajo;
-	int peso;
+	double peso;
 	int mejora;
 	int cantidad;
 	int disponibles;
@@ -22,7 +22,7 @@ public class Herramienta {
 	 * Constructor para el objeto
 	 * NO MODIFICAR LA LLAMADA DEL CONSTRUCTOR
 	 */
-	public Herramienta(String nombre, String trabajo, int peso, int mejora, int cantidad) {
+	public Herramienta(String nombre, String trabajo, double peso, int mejora, int cantidad) {
 		this.nombre = nombre;
 		this.trabajo = trabajo;
 		this.peso = peso;
@@ -50,10 +50,10 @@ public class Herramienta {
 	public void setTrabajo(String trabajo) {
 		this.trabajo = trabajo;
 	}
-	public int getPeso() {
+	public double getPeso() {
 		return peso;
 	}
-	public void setPeso(int peso) {
+	public void setPeso(double peso) {
 		this.peso = peso;
 	}
 	public int getMejora() {
