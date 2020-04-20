@@ -57,6 +57,9 @@ public class Tarea {
 	public void setAsignada(String asignada) {
 		this.asignada = asignada;
 	}
+	public void setAsignada() {
+		this.asignada = null;
+	}
 	public String getAsignada() {
 		return asignada;
 	}

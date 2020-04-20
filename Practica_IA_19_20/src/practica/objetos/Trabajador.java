@@ -140,6 +140,7 @@ public class Trabajador {
 		}
 		System.out.println("Trabajador " + getNombre() + " ha hecho " + herramienta.getTrabajo() + " " + Unidades + " y ha tardado " + minutos);
 		this.minutosTrabajados += Informacion.getCoste(this.area, Area, herramienta.getPeso()) + minutos;
+		setUnidadesTrabajadas(Area, Unidades);
 	}
 
 	public void setMinutosTrabajados(String Area){
@@ -181,8 +182,17 @@ public class Trabajador {
 	public void setTareas(ArrayList<Tarea> Tareas){
 		this.tareas = Tareas;
 	}
-	public void setUnidadesTrabajadas(int Unidades){
+
+	public void setUnidadesTrabajadas(Areas Area, int Unidades){
 		unidadesTrabajadas += Unidades;
+		if(herramienta.getTrabajo().equals("podar")){//Si la tarea es de tipo poda
+			for (Tarea tarea : tareas ){//recorremos todas las tareas
+				if(tarea.getArea().equals(Area) && tarea.getTipo().equals("limpiar")){//Si se encuentra en el mismo area y es de tipo limpiar suma una unidad
+					tarea.setUnidades(tarea.getUnidades() + Unidades);
+					break;
+				}
+			}
+		}
 	}
 	public int getUnidadesTrabajadas(){
 		return unidadesTrabajadas;

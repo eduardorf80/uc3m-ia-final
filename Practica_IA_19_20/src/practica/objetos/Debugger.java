@@ -38,6 +38,7 @@ public class Debugger {
         System.out.println();
     }
     public void printTareas(boolean Todas , String Tipo) {
+        System.out.println(ANSI_CYAN + "\nEstado actual de las tareas\n" + ANSI_RESET);
         for (Tarea tarea : tareas) {
             if ((Todas || tarea.getUnidades() > 0) && tarea.getTipo().equals(Tipo))
                 System.out.println(ANSI_PURPLE + "\t" + "La tarea de " + tarea.getTipo() + " del area " + tarea.getArea() + " tiene " + tarea.getUnidades() + " unidades restantes y esta asignada a  " + tarea.getAsignada() + ANSI_RESET);
@@ -45,6 +46,7 @@ public class Debugger {
         System.out.println();
     }
     public void printHerramientas(){
+        System.out.println(ANSI_CYAN + "\nEstado actual de las herramientas\n" + ANSI_RESET);
         for (Herramienta herramienta: herramientas){
             System.out.println(ANSI_GREEN + "\t"+ "La herramienta " + String.format("%-20s",herramienta.getNombre()) + " sirve para " + String.format("%-7s",herramienta.getTrabajo()) + " de la cual hay " + herramienta.getCantidad() + " unidades y da una mejora de " + herramienta.getMejora() + " y pesa " + herramienta.getPeso() + ANSI_RESET);
         }
