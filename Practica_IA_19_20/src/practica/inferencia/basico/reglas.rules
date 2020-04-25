@@ -75,8 +75,7 @@ rule Trabajador_con_Herramienta_Almacen{		//
         ta1.getTipo().equals(tr1.getHerramienta().getTrabajo());		// - La herramienta que tiene tiene que ser la necesaria para la tarea
         tr1.isMin(ta1);							// - La tarea tiene que estar a la mínima distancia posible
     actions									    // Acciones:
-        tr1.setMinutosTrabajados(ta1.getArea(),1);	//Calculamos los minutos que va a tardar en hacer una tarea el trabajador y se los añadimos a sus minutos trabajados
-        tr1.setUnidadesTrabajadas(1);
+        tr1.setMinutosTrabajados(ta1.getArea(),1,0);	//Calculamos los minutos que va a tardar en hacer una tarea el trabajador y se los añadimos a sus minutos trabajados
         tr1.setArea(ta1.getArea());				// Movemos al trabajador al área de la tarea
         ta1.setUnidades(ta1.getUnidades()-1);   // Ponemos las unidades de la tarea a 0
         modified(ta1);							//
@@ -115,8 +114,7 @@ rule Trabajador_con_Herramienta {				//
     ta1.getTipo().equals(tr1.getHerramienta().getTrabajo()); 		// - La herramienta que tiene tiene que ser la necesaria para la tarea
     tr1.isMin(ta1);								// - La tarea tiene que estar a la mínima distancia posible
   actions										// Acciones:
-    tr1.setMinutosTrabajados(ta1.getArea(),1);	//Calculamos los minutos que va a tardar en hacer una tarea el trabajador y se los añadimos a sus minutos trabajados
-    tr1.setUnidadesTrabajadas(1);
+    tr1.setMinutosTrabajados(ta1.getArea(),1,0);	//Calculamos los minutos que va a tardar en hacer una tarea el trabajador y se los añadimos a sus minutos trabajados
     tr1.setArea(ta1.getArea());					// Movemos al trabajador al área de la tarea
     ta1.setUnidades(ta1.getUnidades()-1);		// Ponemos las unidades de la tarea a 0
     modified(ta1);								//

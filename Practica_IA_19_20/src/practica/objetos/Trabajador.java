@@ -125,7 +125,7 @@ public class Trabajador {
 		return area;
 	}
 
-	public void setMinutosTrabajados(Areas Area, int Unidades) {
+	public void setMinutosTrabajados(Areas Area, int Unidades, int Avanzado) {
 		double minutos = 0;
 		switch (herramienta.getTrabajo()) {
 			case "podar":
@@ -140,7 +140,7 @@ public class Trabajador {
 		}
 		System.out.println("Trabajador " + getNombre() + " ha hecho " + herramienta.getTrabajo() + " " + Unidades + " y ha tardado " + minutos);
 		this.minutosTrabajados += Informacion.getCoste(this.area, Area, herramienta.getPeso()) + minutos;
-		setUnidadesTrabajadas(Area, Unidades);
+		setUnidadesTrabajadas(Area, Unidades , Avanzado);
 	}
 
 	public void setMinutosTrabajados(String Area){
@@ -183,13 +183,15 @@ public class Trabajador {
 		this.tareas = Tareas;
 	}
 
-	public void setUnidadesTrabajadas(Areas Area, int Unidades){
+	public void setUnidadesTrabajadas(Areas Area, int Unidades, int Avanzado){
 		unidadesTrabajadas += Unidades;
-		if(herramienta.getTrabajo().equals("podar")){//Si la tarea es de tipo poda
-			for (Tarea tarea : tareas ){//recorremos todas las tareas
-				if(tarea.getArea().equals(Area) && tarea.getTipo().equals("limpiar")){//Si se encuentra en el mismo area y es de tipo limpiar suma una unidad
-					tarea.setUnidades(tarea.getUnidades() + Unidades);
-					break;
+		if(Avanzado == 1){
+			if(herramienta.getTrabajo().equals("podar")){//Si la tarea es de tipo poda
+				for (Tarea tarea : tareas ){//recorremos todas las tareas
+					if(tarea.getArea().equals(Area) && tarea.getTipo().equals("limpiar")){//Si se encuentra en el mismo area y es de tipo limpiar suma una unidad
+						tarea.setUnidades(tarea.getUnidades() + Unidades);
+						break;
+					}
 				}
 			}
 		}
