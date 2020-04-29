@@ -1,10 +1,10 @@
 package practica.busqueda.basico;
 
 /**
- * Clase creada como ejemplo de la parte 2 de la pr·ctica 2019-2020 de IA, UC3M Colmenarejo
+ * Clase creada como ejemplo de la parte 2 de la pr√°ctica 2019-2020 de IA, UC3M Colmenarejo
  * NO MODIFICAR
  * @author Daniel Amigo Herrero
- * @author David S·nchez Pedroche
+ * @author David S√°nchez Pedroche
  */
 
 public class OpenList {
@@ -16,11 +16,11 @@ public class OpenList {
 		this.rootNode = new Node();	// Genera el nodo raiz vacio. Despues se modifica
 	}
 
-	/*** MÈtodos especÌficos para el funcionamiento de A estrella */
+	/*** M√©todos espec√≠ficos para el funcionamiento de A estrella */
 
 	/**
 	 * NO MODIFICAR
-	 * Introduce un nodo en funciÛn de su valor de evaluaciÛn (de menor a mayor). Imprescindible para mantener el orden de la lista
+	 * Introduce un nodo en funci√≥n de su valor de evaluaci√≥n (de menor a mayor). Imprescindible para mantener el orden de la lista
 	 * @param newElem
 	 */
 	public void insertAtEvaluation(Node newElem) {
@@ -36,7 +36,7 @@ public class OpenList {
 		}
 		else {
 			while (nodeIt != null) {
-				
+
 				posNode = nodeIt;
 				nodeIt  = nodeIt.getNextNode();
 				if(nodeIt == null) {
@@ -65,7 +65,7 @@ public class OpenList {
 	}
 
 
-	/*** MÈtodos de utilidad dentro de una lista **/
+	/*** M√©todos de utilidad dentro de una lista **/
 
 	/**
 	 * NO MODIFICAR
@@ -98,21 +98,21 @@ public class OpenList {
 		} else {
 			lastNode.setNextNode(newNodo);
 		}
-	}	
+	}
 
 	/**
 	 * NO MODIFICAR
 	 * Comprobar si la lista esta vacia
 	 * @return
 	 */
-	public boolean isEmpty() {				
+	public boolean isEmpty() {
 		return (rootNode.getNextNode() == null);
 	}
 
 
 	/**
 	 * NO MODIFICAR
-	 * Obtener el tamaÒo de la lista
+	 * Obtener el tama√±o de la lista
 	 * @return
 	 */
 	public int getSize() {
