@@ -78,7 +78,7 @@ public class LectorJSON {
 			// Tareas
 			Iterator iterator = tareasJSON.entrySet().iterator();
 			while (iterator.hasNext()) {
-				Map.Entry<String, JSONObject> pair = (Entry<String, JSONObject>) iterator.next();
+				Entry<String, JSONObject> pair = (Entry<String, JSONObject>) iterator.next();
 				JSONObject tareaObject = pair.getValue();
 				Long unidadesAux = (Long) tareaObject.get("unidades");
 				tareas.add(new Tarea(
@@ -91,7 +91,7 @@ public class LectorJSON {
 			// Trabajadores
 			iterator = trabajadoresJSON.entrySet().iterator();
 			while (iterator.hasNext()) {
-				Map.Entry<String, JSONObject> pair = (Entry<String, JSONObject>) iterator.next();
+				Entry<String, JSONObject> pair = (Entry<String, JSONObject>) iterator.next();
 				JSONObject tareaObject = pair.getValue();
 				Long podarAux = (Long) tareaObject.get("podar");
 				Long limpiarAux = (Long) tareaObject.get("limpiar");
@@ -107,7 +107,7 @@ public class LectorJSON {
 			// Herramientas
 			iterator = herramientasJSON.entrySet().iterator();
 			while (iterator.hasNext()) {
-				Map.Entry<String, JSONObject> pair = (Entry<String, JSONObject>) iterator.next();
+				Entry<String, JSONObject> pair = (Entry<String, JSONObject>) iterator.next();
 				JSONObject herramientaObject = pair.getValue();
 				Long mejoraAux = (Long) herramientaObject.get("mejora");
 				Long cantidadAux = (Long) herramientaObject.get("cantidad");

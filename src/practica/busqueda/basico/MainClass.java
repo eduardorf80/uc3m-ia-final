@@ -6,8 +6,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import practica.busqueda.avanzado.AStar;
-import practica.busqueda.avanzado.Node;
+import practica.busqueda.basico.AStar;
+import practica.busqueda.basico.Node;
 import practica.json.LectorJSON;
 import practica.objetos.Herramienta;
 import practica.objetos.Tarea;
@@ -25,14 +25,14 @@ public class MainClass {
 	/**
 	 * Ejecuta la solución del problema avanzado con un algoritmo de búsqueda
 	 * MODIFICAR
-	 * @param args[0]: Ruta del fichero a ejecutar
-	 * @param args[1]: Número de debug a utilizar
+	 * @param args [0]: Ruta del fichero a ejecutar
+	 * @param args [1]: Número de debug a utilizar
 	 */
-	public static void main(java.lang.String[] args) throws IOException {
+	public static void main(String[] args) throws IOException {
 
 		/**
 		 * No se permite modificar el código desde aquí. Salvo el valor de printDebug o problemPath
-		 */ 
+		 */
 
 		System.out.println("--------------------------------------------------------");
 		System.out.println("********** PRACTICA IA 19-20 UC3M COLMENAREJO **********");

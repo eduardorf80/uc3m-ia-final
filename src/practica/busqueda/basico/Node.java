@@ -11,7 +11,7 @@ import practica.objetos.Trabajador;
  *
  * @author Daniel Amigo Herrero
  * @author David S�nchez Pedroche
- * 
+ *
  */
 
 public class Node {
@@ -40,7 +40,7 @@ public class Node {
 	/**
 	 * MODIFICAR
 	 * Constructor auxiliar para la implementaci�n del algoritmo. Genera una copia de un nodo para introducirla en la OpenList
-	 */ 
+	 */
 	public Node(Node original) {
 		// Incluir todas las variables del nodo
 		this.cost        = original.cost;
@@ -74,7 +74,7 @@ public class Node {
 
 	/**
 	 * Constructor auxiliar para generar el primer nodo de la lista abierta
-	 */ 
+	 */
 	public Node() {	}
 
 	/**
@@ -84,19 +84,21 @@ public class Node {
 	 * this.heuristica  - Resultado
 	 */
 	public void computeHeuristic(Node finalNode) {
-		// MODIFICAR para ajustarse a las necesidades del problema
+		int uPodaRestantes, uLimpiezaRestantes, uReparacionRestantes;
+
+
 		this.heuristic = 0;
 	}
 
 	/**
 	 * Comprobaci�n de que la informaci�n de un nodo es equivalente a la de otro nodo
 	 * Solo comparar la informaci�n necesaria para ver si es el mismo estado del problema
-	 * 
+	 *
 	 * @param other - el nodo con el que comparar this
 	 * @return true: son iguales. false: no lo son
 	 */
 	public boolean equals(Node other) {
-		boolean check = true; // 
+		boolean check = true; //
 		// MODIFICAR la condici�n para ajustarse a las necesidades del problema
 		return check;
 	}
@@ -107,14 +109,14 @@ public class Node {
 	 * @param printDebug. Permite seleccionar cu�ntos mensajes imprimir
 	 */
 	public void printNodeData(int printDebug) {
-		
+
 	}
 
 	/**
-	 * Ejecuta la funci�n de evaluacion del problema para el nodo. IMPORTANTE: ejecutar despu�s el c�lculo del coste y heur�stica
+	 * Ejecuta la funci�n de evaluacion del problema para el nodo. IMPORTANTE: ejecutar despu�s de el c�lculo del coste y heur�stica
 	 */
 	public void computeEvaluation() {
-		this.evaluation = this.cost + this.heuristic; 
+		this.evaluation = this.cost + this.heuristic;
 	}
 
 	/**** Getters y Setters ****/

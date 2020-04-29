@@ -21,7 +21,7 @@ import practica.objetos.Trabajador;
 
 public class MainClass {
 
-	public static void main(java.lang.String[] args) throws IOException {
+	public static void main(String[] args) throws IOException {
 	
 		/**
 		 * No se permite modificar el código desde aquí. Salvo el valor de printDebug o problemPath
