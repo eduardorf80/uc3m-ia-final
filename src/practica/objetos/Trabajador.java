@@ -72,6 +72,9 @@ public class Trabajador {
 	public String getHabMax(int Pos){
 		return habilidades[Pos];
 	}
+	public String[] getHabMax(){
+		return habilidades;
+	}
 
 	public void setHabilidades() {
 		if(getHabPodar() >= getHabLimpiar() && getHabPodar() >= getHabReparar()){

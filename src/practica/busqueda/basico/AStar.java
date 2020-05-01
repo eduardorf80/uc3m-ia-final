@@ -6,6 +6,7 @@ import java.util.List;
 
 import practica.busqueda.basico.Node;
 import practica.busqueda.basico.OpenList;
+import practica.objetos.Areas;
 import practica.objetos.Herramienta;
 import practica.objetos.Tarea;
 import practica.objetos.Trabajador;
@@ -41,15 +42,43 @@ public class AStar {
 		int indexTrabajador = 0;
 		for (Trabajador trabajador : trabajadores){
 			if (trabajador.getNombre().equals("Antonio")){
+				//Salida del almacén
+				if(trabajador.getArea() == Areas.A && trabajador.getHerramienta() == null){
+					for(String habilidad : trabajador.getHabMax()){
+						for (Tarea tarea : tareas){
+							if(tarea.getTipo().equals(habilidad) && tarea.getUnidades() > 0){
+								Node NodoHijo = new Node(currentNode);
+								for(Herramienta herramienta : NodoHijo.getHerramientas()){
+									if(herramienta.getTrabajo().equals(habilidad) && herramienta.getDisponibles() > 0) {
+										herramienta.cogerHerramienta();
+										NodoHijo.getTrabajadores().get(indexTrabajador).setHerramienta(herramienta);
+										openList.insertAtEvaluation(NodoHijo);
+									}
+								}
+								return;
+							}
+						}
+					}
+				}
+				//Movimiento entre celdas
 				int indexTarea = 0;
+				boolean encontrado = false;
 				for (Tarea tarea : tareas){
-					if (tarea.getArea() == trabajador.getArea() && tarea.getTipo().equals(trabajador.getHerramienta().getTrabajo()) && tarea.getUnidades() > 0){
+					if (tarea.getTipo().equals(trabajador.getHerramienta().getTrabajo()) && tarea.getUnidades() > 0){
 						Node NodoHijo = new Node(currentNode);
 						NodoHijo.getTareas().get(indexTarea).setUnidades(0);
-						NodoHijo.getTrabajadores().get(indexTarea).setMinutosTrabajados(tarea.getArea(), tarea.getUnidades(), 0);
-
+						NodoHijo.getTrabajadores().get(indexTrabajador).setMinutosTrabajados(tarea.getArea(), tarea.getUnidades(), 0);
+						NodoHijo.getTrabajadores().get(indexTrabajador).setArea(tarea.getArea());
+						openList.insertAtEvaluation(NodoHijo);
+						encontrado = true;
 					}
 					indexTarea++;
+				}
+				if(!encontrado){
+					Node NodoHijo = new Node(currentNode);
+					NodoHijo.getTrabajadores().get(indexTrabajador).setMinutosTrabajados("A");
+					NodoHijo.getTrabajadores().get(indexTrabajador).setHerramienta();
+					openList.insertAtEvaluation(NodoHijo);
 				}
 			}
 			indexTrabajador++;
