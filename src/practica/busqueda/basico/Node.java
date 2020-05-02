@@ -85,9 +85,10 @@ public class Node {
 	 */
 	public void computeHeuristic(Node finalNode) {
 		int uPodaRestantes, uLimpiezaRestantes, uReparacionRestantes;
-
-
 		this.heuristic = 0;
+		for(Tarea tarea : tareas){
+			this.heuristic += tarea.getUnidades();
+		}
 	}
 
 	/**
@@ -98,15 +99,25 @@ public class Node {
 	 * @return true: son iguales. false: no lo son
 	 */
 	public boolean equals(Node other) {
-		boolean check = true; //
-		// MODIFICAR la condici�n para ajustarse a las necesidades del problema
-		return check;
+		for(int indice = 0; indice < herramientas.size(); indice++){
+			if(herramientas.get(indice).getDisponibles() != other.getHerramientas().get(indice).getDisponibles()) return false;
+		}
+		for(int indice = 0; indice < tareas.size(); indice++){
+			if(tareas.get(indice).getUnidades() != other.getTareas().get(indice).getUnidades()) return false;
+		}
+		for(int indice = 0; indice < trabajadores.size(); indice++){
+			//if(trabajadores.get(indice).getMinutosTrabajados() != other.getTrabajadores().get(indice).getMinutosTrabajados()) return false;
+			//if(trabajadores.get(indice).getUnidadesTrabajadas() != other.getTrabajadores().get(indice).getUnidadesTrabajadas()) return false;
+			if(trabajadores.get(indice).getArea() != other.getTrabajadores().get(indice).getArea()) return false;
+			//if(trabajadores.get(indice).getHerramienta() != other.getTrabajadores().get(indice).getHerramienta()) return false;
+		}
+		return true;
 	}
 
 
 	/**
 	 * Impresi�n de la informaci�n del nodo
-	 * @param printDebug. Permite seleccionar cu�ntos mensajes imprimir
+	 * @param printDebug . Permite seleccionar cu�ntos mensajes imprimir
 	 */
 	public void printNodeData(int printDebug) {
 
