@@ -44,6 +44,7 @@ public class AStar {
 			if (trabajador.getNombre().equals("Antonio")){
 				//Salida del almacén
 				if(trabajador.getArea() == Areas.A && trabajador.getHerramienta() == null){
+					habilidadisponible:
 					for(String habilidad : trabajador.getHabMax()){
 						for (Tarea tarea : tareas){
 							if(tarea.getTipo().equals(habilidad) && tarea.getUnidades() > 0){
@@ -55,7 +56,7 @@ public class AStar {
 										openList.insertAtEvaluation(NodoHijo);
 									}
 								}
-								return;
+								break habilidadisponible;
 							}
 						}
 					}
@@ -69,6 +70,7 @@ public class AStar {
 						NodoHijo.getTareas().get(indexTarea).setUnidades(0);
 						NodoHijo.getTrabajadores().get(indexTrabajador).setMinutosTrabajados(tarea.getArea(), tarea.getUnidades(), 0);
 						NodoHijo.getTrabajadores().get(indexTrabajador).setArea(tarea.getArea());
+						NodoHijo.setCoste(NodoHijo.getCost() + (NodoHijo.getTrabajadores().get(indexTrabajador).getMinutosTrabajados() - trabajador.getMinutosTrabajados()));
 						openList.insertAtEvaluation(NodoHijo);
 						encontrado = true;
 					}
@@ -78,14 +80,13 @@ public class AStar {
 					Node NodoHijo = new Node(currentNode);
 					NodoHijo.getTrabajadores().get(indexTrabajador).setMinutosTrabajados("A");
 					NodoHijo.getTrabajadores().get(indexTrabajador).setHerramienta();
+					NodoHijo.getTrabajadores().get(indexTrabajador).setArea(Areas.A);
+					NodoHijo.setCoste(NodoHijo.getCost() + (NodoHijo.getTrabajadores().get(indexTrabajador).getMinutosTrabajados() - trabajador.getMinutosTrabajados()));
 					openList.insertAtEvaluation(NodoHijo);
 				}
 			}
 			indexTrabajador++;
 		}
-
-		// MODIFICAR para insertar las acciones espec�ficas del problema
-
 	}
 
 	/**
