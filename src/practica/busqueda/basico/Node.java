@@ -2,10 +2,7 @@ package practica.busqueda.basico;
 
 import java.util.ArrayList;
 
-import practica.objetos.Debugger;
-import practica.objetos.Herramienta;
-import practica.objetos.Tarea;
-import practica.objetos.Trabajador;
+import practica.objetos.*;
 
 /**
  * Clase creada como base para la parte 2 de la pr�ctica 2019-2020 de Inteligencia Artificial, UC3M, Colmenarejo
@@ -101,8 +98,19 @@ public class Node {
 		//int uPodaRestantes, uLimpiezaRestantes, uReparacionRestantes;
 		this.heuristic = 0;
 		for(Tarea tarea : tareas){
-			this.heuristic += tarea.getUnidades();
+			switch (tarea.getTipo()) {
+				case "podar":
+					this.heuristic += (double) (tarea.getUnidades() * 60) / trabajadores.get(0).getHabPodar();
+					break;
+				case "limpiar":
+					this.heuristic += (double) (tarea.getUnidades() * 60) / trabajadores.get(0).getHabLimpiar();
+					break;
+				case "reparar":
+					this.heuristic += (double) (tarea.getUnidades() * 60) / trabajadores.get(0).getHabReparar();
+					break;
+			}
 		}
+		this.heuristic += Informacion.getCoste(trabajadores.get(0).getArea(), Areas.A, 0);
 	}
 
 	/**

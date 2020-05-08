@@ -103,6 +103,7 @@ public class MainClass {
 		for (Node node:path) {
 			node.printNodeData(2);	// printDebug = 2
 		}
+		//System.out.println(path.size()); @TODO Preguntar a los becarios y ponerlo bonito
 		System.out.println();
 	}
 
@@ -116,7 +117,6 @@ public class MainClass {
 		System.out.println("************** IMPRESION DE METRICAS **************");
 		System.out.println("La ejecución ha tardado: "+executionTime +" segundos");
 		System.out.println("Se han explorado " + aStar.getClosedList().size() + " nodos y se pueden " + aStar.getOpenList().getSize() + " nodos adyacentes, por lo que se han generado en total " + (aStar.getClosedList().size() + aStar.getOpenList().getSize()) + " nodos.");
-		System.out.println("Las horas totales trabajadas son ");
+		System.out.println("Antonio ha trabajado " + (int)Math.round(aStar.getGoalNode().getTrabajadores().get(0).getMinutosTrabajados()) + " minutos que son " + String.format("%.2f", aStar.getGoalNode().getTrabajadores().get(0).getMinutosTrabajados()/60) + " horas.");
 	}
-
 }
