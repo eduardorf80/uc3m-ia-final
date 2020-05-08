@@ -33,7 +33,6 @@ public class MainClass {
 		/**
 		 * No se permite modificar el código desde aquí. Salvo el valor de printDebug o problemPath
 		 */
-
 		System.out.println("--------------------------------------------------------");
 		System.out.println("********** PRACTICA IA 19-20 UC3M COLMENAREJO **********");
 		System.out.println("************** SOLUCION BUSQUEDA - BASICO **************");
@@ -88,6 +87,7 @@ public class MainClass {
 		printFinalPath(aStar);
 		System.out.println("------------------------ METRICAS -----------------------");
 		printMetrics(aStar, executionTime);
+		System.out.println(trabajadores.get(0).getMinutosTrabajados());
 	}
 
 	/**
@@ -102,6 +102,7 @@ public class MainClass {
 		// Genera el camino para llegar a la meta desde el nodo inicial
 		List<Node> path = aStar.getPath(aStar.getGoalNode());
 		for (Node node:path) {
+			System.out.println(node.getTrabajadores().get(0).getArea().toString());
 			node.printNodeData(2);	// printDebug = 2
 		}
 		System.out.println();

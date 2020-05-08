@@ -73,6 +73,10 @@ public class Herramienta {
 		return disponibles;
 	}
 
+	public void setDisponibles(int Disponibles) {
+		this.disponibles = Disponibles;
+	}
+
 	public void cogerHerramienta(){
 		this.disponibles -= 1;
 	}

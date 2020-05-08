@@ -55,12 +55,17 @@ public class Node {
 		ArrayList<Trabajador> trabajadores = new ArrayList<Trabajador>();
 		for (int i = 0; i < original.trabajadores.size(); i++) {
 			Trabajador trabajador = new Trabajador(original.trabajadores.get(i).getNombre(), original.trabajadores.get(i).getHabPodar(), original.trabajadores.get(i).getHabLimpiar(), original.trabajadores.get(i).getHabReparar());
+			trabajador.setHerramienta(original.trabajadores.get(i).getHerramienta());
+			trabajador.setMinutosTrabajados(original.trabajadores.get(i).getMinutosTrabajados());
+			trabajador.setUnidadesTrabajadas(original.trabajadores.get(i).getUnidadesTrabajadas());
+			trabajador.setArea(original.trabajadores.get(i).getArea());
 			trabajadores.add(trabajador);
 		}
 		this.trabajadores = trabajadores;
 		ArrayList<Herramienta> herramientas = new ArrayList<Herramienta>();
 		for (int i = 0; i < original.herramientas.size(); i++) {
 			Herramienta herramienta = new Herramienta(original.herramientas.get(i).getNombre(), original.herramientas.get(i).getTrabajo(), original.herramientas.get(i).getPeso(), original.herramientas.get(i).getMejora(), original.herramientas.get(i).getCantidad());
+			herramienta.setDisponibles(original.herramientas.get(i).getDisponibles());
 			herramientas.add(herramienta);
 		}
 		this.herramientas = herramientas;
@@ -84,7 +89,7 @@ public class Node {
 	 * this.heuristica  - Resultado
 	 */
 	public void computeHeuristic(Node finalNode) {
-		int uPodaRestantes, uLimpiezaRestantes, uReparacionRestantes;
+		//int uPodaRestantes, uLimpiezaRestantes, uReparacionRestantes;
 		this.heuristic = 0;
 		for(Tarea tarea : tareas){
 			this.heuristic += tarea.getUnidades();
@@ -109,7 +114,7 @@ public class Node {
 			//if(trabajadores.get(indice).getMinutosTrabajados() != other.getTrabajadores().get(indice).getMinutosTrabajados()) return false;
 			//if(trabajadores.get(indice).getUnidadesTrabajadas() != other.getTrabajadores().get(indice).getUnidadesTrabajadas()) return false;
 			if(trabajadores.get(indice).getArea() != other.getTrabajadores().get(indice).getArea()) return false;
-			//if(trabajadores.get(indice).getHerramienta() != other.getTrabajadores().get(indice).getHerramienta()) return false;
+			if(trabajadores.get(indice).getHerramienta() != other.getTrabajadores().get(indice).getHerramienta()) return false;
 		}
 		return true;
 	}

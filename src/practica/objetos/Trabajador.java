@@ -141,9 +141,12 @@ public class Trabajador {
 				minutos = (double)(Unidades * 60) / (getHabReparar() + herramienta.getMejora());
 				break;
 		}
-		System.out.println("Trabajador " + getNombre() + " ha hecho " + herramienta.getTrabajo() + " " + Unidades + " y ha tardado " + minutos);
+		System.out.println("Trabajador " + getNombre() + " ha hecho " + herramienta.getTrabajo() + " " + Unidades +" que en total ha hecho " +getUnidadesTrabajadas() + " y ha tardado " + minutos);
 		this.minutosTrabajados += Informacion.getCoste(this.area, Area, herramienta.getPeso()) + minutos;
 		setUnidadesTrabajadas(Area, Unidades , Avanzado);
+	}
+	public void setMinutosTrabajados(double MinutosTrabajados){
+		this.minutosTrabajados=MinutosTrabajados;
 	}
 
 	public void setMinutosTrabajados(String Area){
@@ -199,6 +202,11 @@ public class Trabajador {
 			}
 		}
 	}
+
+	public void setUnidadesTrabajadas(int UnidadesTrabajadas) {
+		this.unidadesTrabajadas = UnidadesTrabajadas;
+	}
+
 	public int getUnidadesTrabajadas(){
 		return unidadesTrabajadas;
 	}
