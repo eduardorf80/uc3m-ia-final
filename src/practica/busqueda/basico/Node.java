@@ -2,6 +2,7 @@ package practica.busqueda.basico;
 
 import java.util.ArrayList;
 
+import practica.objetos.Debugger;
 import practica.objetos.Herramienta;
 import practica.objetos.Tarea;
 import practica.objetos.Trabajador;
@@ -23,6 +24,7 @@ public class Node {
 	ArrayList<Herramienta> herramientas;
 	ArrayList<Trabajador>  trabajadores;
 	ArrayList<Tarea>       tareas;
+	Debugger debugger;
 	// A�adir m�s variables si se desea
 
 	/**
@@ -34,6 +36,7 @@ public class Node {
 		this.herramientas = herramientas;
 		this.trabajadores = trabajadores;
 		this.tareas       = tareas;
+		this.debugger = new Debugger(herramientas,trabajadores,tareas);
 		// A�adir m�s variables si se desea
 	}
 
@@ -52,16 +55,6 @@ public class Node {
 
 		// Se copian los objetos de los ArrayList a uno nuevo de este Nodo
 		// Si se necesita a�adir valores variables, como un ID, utilizar setters
-		ArrayList<Trabajador> trabajadores = new ArrayList<Trabajador>();
-		for (int i = 0; i < original.trabajadores.size(); i++) {
-			Trabajador trabajador = new Trabajador(original.trabajadores.get(i).getNombre(), original.trabajadores.get(i).getHabPodar(), original.trabajadores.get(i).getHabLimpiar(), original.trabajadores.get(i).getHabReparar());
-			trabajador.setHerramienta(original.trabajadores.get(i).getHerramienta());
-			trabajador.setMinutosTrabajados(original.trabajadores.get(i).getMinutosTrabajados());
-			trabajador.setUnidadesTrabajadas(original.trabajadores.get(i).getUnidadesTrabajadas());
-			trabajador.setArea(original.trabajadores.get(i).getArea());
-			trabajadores.add(trabajador);
-		}
-		this.trabajadores = trabajadores;
 		ArrayList<Herramienta> herramientas = new ArrayList<Herramienta>();
 		for (int i = 0; i < original.herramientas.size(); i++) {
 			Herramienta herramienta = new Herramienta(original.herramientas.get(i).getNombre(), original.herramientas.get(i).getTrabajo(), original.herramientas.get(i).getPeso(), original.herramientas.get(i).getMejora(), original.herramientas.get(i).getCantidad());
@@ -69,12 +62,28 @@ public class Node {
 			herramientas.add(herramienta);
 		}
 		this.herramientas = herramientas;
+		ArrayList<Trabajador> trabajadores = new ArrayList<Trabajador>();
+		for (int i = 0; i < original.trabajadores.size(); i++) {
+			Trabajador trabajador = new Trabajador(original.trabajadores.get(i).getNombre(), original.trabajadores.get(i).getHabPodar(), original.trabajadores.get(i).getHabLimpiar(), original.trabajadores.get(i).getHabReparar());
+			for(int j = 0 ; j<original.herramientas.size(); j++){
+				if(original.herramientas.get(j) == original.getTrabajadores().get(i).getHerramienta()){
+					trabajador.setHerramienta(herramientas.get(j));
+					break;
+				}
+			}
+			trabajador.setMinutosTrabajados(original.trabajadores.get(i).getMinutosTrabajados());
+			trabajador.setUnidadesTrabajadas(original.trabajadores.get(i).getUnidadesTrabajadas());
+			trabajador.setArea(original.trabajadores.get(i).getArea());
+			trabajadores.add(trabajador);
+		}
+		this.trabajadores = trabajadores;
 		ArrayList<Tarea> tareas = new ArrayList<Tarea>();
 		for (int i = 0; i < original.tareas.size(); i++) {
 			Tarea tarea = new Tarea(original.tareas.get(i).getTipo(), original.tareas.get(i).getArea().toString(), original.tareas.get(i).getUnidades());
 			tareas.add(tarea);
 		}
 		this.tareas = tareas;
+		this.debugger = new Debugger(herramientas,trabajadores,tareas);
 	}
 
 	/**
@@ -125,7 +134,7 @@ public class Node {
 	 * @param printDebug . Permite seleccionar cu�ntos mensajes imprimir
 	 */
 	public void printNodeData(int printDebug) {
-
+		getDebugger().printTrabajadores();
 	}
 
 	/**
@@ -186,5 +195,9 @@ public class Node {
 	}
 	public void setNextNode(Node nextNode) {
 		this.nextNodeList = nextNode;
+	}
+
+	public Debugger getDebugger() {
+		return debugger;
 	}
 }

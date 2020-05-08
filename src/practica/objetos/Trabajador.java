@@ -141,7 +141,7 @@ public class Trabajador {
 				minutos = (double)(Unidades * 60) / (getHabReparar() + herramienta.getMejora());
 				break;
 		}
-		System.out.println("Trabajador " + getNombre() + " ha hecho " + herramienta.getTrabajo() + " " + Unidades +" que en total ha hecho " +getUnidadesTrabajadas() + " y ha tardado " + minutos);
+		//System.out.println("Trabajador " + getNombre() + " ha hecho " + herramienta.getTrabajo() + " " + Unidades +" que en total ha hecho " +getUnidadesTrabajadas() + " y ha tardado " + minutos);
 		this.minutosTrabajados += Informacion.getCoste(this.area, Area, herramienta.getPeso()) + minutos;
 		setUnidadesTrabajadas(Area, Unidades , Avanzado);
 	}

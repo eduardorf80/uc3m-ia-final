@@ -87,7 +87,6 @@ public class MainClass {
 		printFinalPath(aStar);
 		System.out.println("------------------------ METRICAS -----------------------");
 		printMetrics(aStar, executionTime);
-		System.out.println(trabajadores.get(0).getMinutosTrabajados());
 	}
 
 	/**
@@ -102,7 +101,6 @@ public class MainClass {
 		// Genera el camino para llegar a la meta desde el nodo inicial
 		List<Node> path = aStar.getPath(aStar.getGoalNode());
 		for (Node node:path) {
-			System.out.println(node.getTrabajadores().get(0).getArea().toString());
 			node.printNodeData(2);	// printDebug = 2
 		}
 		System.out.println();
@@ -117,6 +115,8 @@ public class MainClass {
 	public static void printMetrics(AStar aStar, double executionTime) {
 		System.out.println("************** IMPRESION DE METRICAS **************");
 		System.out.println("La ejecución ha tardado: "+executionTime +" segundos");
+		System.out.println("Se han explorado " + aStar.getClosedList().size() + " nodos y se pueden " + aStar.getOpenList().getSize() + " nodos adyacentes, por lo que se han generado en total " + (aStar.getClosedList().size() + aStar.getOpenList().getSize()) + " nodos.");
+		System.out.println("Las horas totales trabajadas son ");
 	}
 
 }

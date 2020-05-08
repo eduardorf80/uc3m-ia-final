@@ -99,7 +99,7 @@ public class MainClass {
 		System.out.println("******************** FIN EJECUCION *********************");
 		System.out.println("--------------------------------------------------------");
 		for (Trabajador trabajador:trabajadores) {
-			System.out.println(trabajador.getNombre() + " ha trabajado " + trabajador.getMinutosTrabajados() + " minutos.");
+			System.out.println(trabajador.getNombre() + " ha trabajado " + (int)Math.round(trabajador.getMinutosTrabajados()) + " minutos, que son "+ String.format("%.2f", trabajador.getMinutosTrabajados() / 60) + " horas.");
 		}
 		printState(herramientas, trabajadores, tareas);
 

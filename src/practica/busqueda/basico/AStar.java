@@ -34,82 +34,11 @@ public class AStar {
 	 * MODIFICAR
 	 * @param currentNode - el nodo actual
 	 */
-	/*private void addAdjacentNodes(Node currentNode) {
-		ArrayList<Trabajador> trabajadores  = currentNode.getTrabajadores();
-		ArrayList<Herramienta> herramientas = currentNode.getHerramientas();
-		ArrayList<Tarea> tareas             = currentNode.getTareas();
-		System.out.println("Entra en addAdjacentNodes");
-		int indexTrabajador = 0;
-		for (Trabajador trabajador : trabajadores){
-			if (trabajador.getNombre().equals("Antonio")){
-				//Salida del almacén
-				if(trabajador.getArea() == Areas.A && trabajador.getHerramienta() == null){
-					habilidadisponible:
-					for(String habilidad : trabajador.getHabMax()){
-						for (Tarea tarea : tareas){
-							if(tarea.getTipo().equals(habilidad) && tarea.getUnidades() > 0){
-								Node NodoHijo = new Node(currentNode);
-								for(Herramienta herramienta : NodoHijo.getHerramientas()){
-									if(herramienta.getTrabajo().equals(habilidad) && herramienta.getMejora() == 0) {
-										NodoHijo.getTrabajadores().get(indexTrabajador).setHerramienta(herramienta);
-										if(checkNode(NodoHijo)){
-											NodoHijo.computeHeuristic(goalNode);
-											NodoHijo.computeEvaluation();
-											NodoHijo.setParent(currentNode);
-											openList.insertAtEvaluation(NodoHijo);
-										}
-									}
-								}
-								break habilidadisponible;
-							}
-						}
-					}
-				}
-				//Movimiento entre celdas
-				boolean encontrado = false;
-				if(trabajador.getHerramienta() != null){
-					int indexTarea = 0;
-					for (Tarea tarea : tareas){
-						if (tarea.getTipo().equals(trabajador.getHerramienta().getTrabajo()) && tarea.getUnidades() > 0){
-							Node NodoHijo = new Node(currentNode);
-							NodoHijo.getTareas().get(indexTarea).setUnidades(0);
-							NodoHijo.getTrabajadores().get(indexTrabajador).setMinutosTrabajados(tarea.getArea(), tarea.getUnidades(), 0);
-							NodoHijo.getTrabajadores().get(indexTrabajador).setArea(tarea.getArea());
-							NodoHijo.setCoste(NodoHijo.getCost() + (NodoHijo.getTrabajadores().get(indexTrabajador).getMinutosTrabajados() - trabajador.getMinutosTrabajados()));
-							if(checkNode(NodoHijo)){
-								NodoHijo.computeHeuristic(goalNode);
-								NodoHijo.computeEvaluation();
-								NodoHijo.setParent(currentNode);
-								openList.insertAtEvaluation(NodoHijo);
-							}
-							encontrado = true;
-						}
-						indexTarea++;
-					}
-				}
-				if(!encontrado && trabajador.getHerramienta() != null){
-					Node NodoHijo = new Node(currentNode);
-					NodoHijo.getTrabajadores().get(indexTrabajador).setMinutosTrabajados("A");
-					NodoHijo.getTrabajadores().get(indexTrabajador).setHerramienta();
-					NodoHijo.getTrabajadores().get(indexTrabajador).setArea(Areas.A);
-					NodoHijo.setCoste(NodoHijo.getCost() + (NodoHijo.getTrabajadores().get(indexTrabajador).getMinutosTrabajados() - trabajador.getMinutosTrabajados()));
-					if(checkNode(NodoHijo)){
-						NodoHijo.computeHeuristic(goalNode);
-						NodoHijo.computeEvaluation();
-						NodoHijo.setParent(currentNode);
-						openList.insertAtEvaluation(NodoHijo);
-					}
-				}
-			}
-			indexTrabajador++;
-		}
-	}
-*/
+
 	private void addAdjacentNodes(Node currentNode) {
 		ArrayList<Trabajador> trabajadores  = currentNode.getTrabajadores();
 		ArrayList<Herramienta> herramientas = currentNode.getHerramientas();
 		ArrayList<Tarea> tareas             = currentNode.getTareas();
-		System.out.println("Entra en addAdjacentNodes");
 		int indexTrabajador = 0;
 		for (Trabajador trabajador : trabajadores){
 			if (trabajador.getNombre().equals("Antonio")){
@@ -188,7 +117,6 @@ public class AStar {
 
 		while(!this.openList.isEmpty()) { 				// Recorremos la lista de nodos sin explorar
 			currentNode = this.openList.pullFirst(); 	// Extraemos el primero (la lista esta ordenada segun la funcion de evaluaci�n)
-			System.out.println("Entra en el bucle");
 			if(checkNode(currentNode)) {				// Si el nodo ya se ha visitado con un coste menor (esta en la lista de explorados) lo ignoramos
 				currentNode.printNodeData(printDebug);
 				closedList.add(currentNode); 			// A�adimos dicho nodo a la lista de explorados
@@ -196,12 +124,10 @@ public class AStar {
 				if(this.getGoalNode().equals(currentNode)) {	// Si es el nodo meta hemos acabado y no hace falta continuar
 					this.setGoalNode(currentNode);
 					this.setFindGoal(true);
-					System.out.println("Es nodo final");
 					break;
 				}
 				this.addAdjacentNodes(currentNode); 	// Expandimos el nodo segun las acciones posibles
 			}
-			printOpenList(); // @TODO eliminar
 
 		}
 
@@ -298,4 +224,27 @@ public class AStar {
 		this.goalNode = goalNode;
 	}
 
+	public int getPrintDebug() {
+		return printDebug;
+	}
+
+	public void setPrintDebug(int printDebug) {
+		this.printDebug = printDebug;
+	}
+
+	public OpenList getOpenList() {
+		return openList;
+	}
+
+	public void setOpenList(OpenList openList) {
+		this.openList = openList;
+	}
+
+	public ArrayList<Node> getClosedList() {
+		return closedList;
+	}
+
+	public void setClosedList(ArrayList<Node> closedList) {
+		this.closedList = closedList;
+	}
 }
