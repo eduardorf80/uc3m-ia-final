@@ -101,9 +101,6 @@ public class MainClass {
 		System.out.println("******************** FIN EJECUCION *********************");
 		System.out.println("--------------------------------------------------------");
 		printState(herramientas, trabajadores, tareas);
-		for (Trabajador trabajador:trabajadores) {
-			System.out.println(trabajador.getNombre() + " ha trabajado " + (int)Math.round(trabajador.getMinutosTrabajados()) + " minutos, que son "+ String.format("%.2f", trabajador.getMinutosTrabajados() / 60) + " horas.");
-		}
 		
 		// Impresión de las métricas definidas
 		System.out.println("------------------------ METRICAS -----------------------");
@@ -119,6 +116,9 @@ public class MainClass {
 	 */
 	public static void printState(ArrayList<Herramienta> herramientas, ArrayList<Trabajador> trabajadores, ArrayList<Tarea> tareas) {
 		System.out.println("************** IMPRESION DEL ESTADO **************");
+		for (Trabajador trabajador:trabajadores) {
+			System.out.println("\u001B[33m" + String.format("%-8s",trabajador.getNombre()) + " ha trabajado " + (int)Math.round(trabajador.getMinutosTrabajados()) + " minutos, que son "+ String.format("%.2f", trabajador.getMinutosTrabajados() / 60) + " horas." + "\u001B[0m");
+		}
 	}
 
 	/**
