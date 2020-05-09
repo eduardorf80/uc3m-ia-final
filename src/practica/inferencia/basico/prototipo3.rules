@@ -1,4 +1,5 @@
 // **RECUERDA** PRIORIDAD EN FUNCI�N DEL ORDEN DE LAS REGLAS (LA SUPERIOR LA M�S PRIORITARIA)
+//Un trabajador, varios tipos de herramientas y varios tipos de tareas. Ruta optimizada.
 
 rule Trabajador_en_el_Almacen_habilidad_1 {
   declarations

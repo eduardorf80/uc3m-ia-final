@@ -1,5 +1,5 @@
 // **RECUERDA** PRIORIDAD EN FUNCI�N DEL ORDEN DE LAS REGLAS (LA SUPERIOR LA M�S PRIORITARIA)
-// Caso base + tiene en cuenta las horas trabajadas
+// Protipo 1 + tiene en cuenta las horas trabajadas
 rule Trabajador_en_el_Almacen {
   declarations
     practica.objetos.Trabajador tr1;
