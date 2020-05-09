@@ -117,6 +117,6 @@ public class MainClass {
 		System.out.println("************** IMPRESION DE METRICAS **************");
 		System.out.println("La ejecución ha tardado: "+executionTime +" segundos");
 		System.out.println("\u001B[32m"+"Se han explorado " + aStar.getClosedList().size() + " nodos y se pueden " + aStar.getOpenList().getSize() + " nodos adyacentes, por lo que se han generado en total " + (aStar.getClosedList().size() + aStar.getOpenList().getSize()) + " nodos." + "\u001B[0m");
-		System.out.println("\u001B[33m"+"Antonio ha trabajado " + (int)Math.round(aStar.getGoalNode().getTrabajadores().get(0).getMinutosTrabajados()) + " minutos que son " + String.format("%.2f", aStar.getGoalNode().getTrabajadores().get(0).getMinutosTrabajados()/60) + " horas." + "\u001B[0m");
+		System.out.println("\u001B[33m"+String.format("%-8s",aStar.getGoalNode().getTrabajadores().get(0).getNombre()) + " ha trabajado " + (int)Math.round(aStar.getGoalNode().getTrabajadores().get(0).getMinutosTrabajados()) + " minutos que son " + String.format("%.2f", aStar.getGoalNode().getTrabajadores().get(0).getMinutosTrabajados()/60) + " horas." + "\u001B[0m");
 	}
 }
