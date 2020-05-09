@@ -71,6 +71,9 @@ public class MainClass {
 		//-------- Se crean los inicializan los objetos para ejecutar la solución --------//
 		Node initialNode = new Node(null, herramientas, trabajadores, tareas);
 		Node goalNode    = new Node(initialNode);
+		for(Tarea tarea : goalNode.getTareas()){
+			tarea.setUnidades(0);
+		}
 		AStar aStar = new AStar(printDebug, initialNode, goalNode); // Se inicializa el A-Estrella
 		
 		//----------------------------- Ejecución del algoritmo ---------------------------//
@@ -111,6 +114,9 @@ public class MainClass {
 	public static void printMetrics(AStar aStar, double executionTime) {
 		System.out.println("************** IMPRESION DE METRICAS **************");
 		System.out.println("La ejecución ha tardado: "+executionTime +" segundos");
+		System.out.println("\u001B[32m"+"Se han explorado " + aStar.getClosedList().size() + " nodos y se pueden " + aStar.getOpenList().getSize() + " nodos adyacentes, por lo que se han generado en total " + (aStar.getClosedList().size() + aStar.getOpenList().getSize()) + " nodos." + "\u001B[0m");
+		System.out.println("\u001B[33m"+"Antonio ha trabajado " + (int)Math.round(aStar.getGoalNode().getTrabajadores().get(0).getMinutosTrabajados()) + " minutos que son " + String.format("%.2f", aStar.getGoalNode().getTrabajadores().get(0).getMinutosTrabajados()/60) + " horas." + "\u001B[0m");
+
 	}
 
 }

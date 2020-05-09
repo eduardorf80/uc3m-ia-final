@@ -2,9 +2,7 @@ package practica.busqueda.avanzado;
 
 import java.util.ArrayList;
 
-import practica.objetos.Herramienta;
-import practica.objetos.Tarea;
-import practica.objetos.Trabajador;
+import practica.objetos.*;
 
 /**
  * Clase creada como base para la parte 2 de la pr�ctica 2019-2020 de Inteligencia Artificial, UC3M, Colmenarejo
@@ -23,6 +21,7 @@ public class Node {
 	ArrayList<Herramienta> herramientas;
 	ArrayList<Trabajador>  trabajadores;
 	ArrayList<Tarea>       tareas;
+	Debugger debugger;
 	// A�adir m�s variables si se desea
 
 	/**
@@ -34,13 +33,14 @@ public class Node {
 		this.herramientas = herramientas;
 		this.trabajadores = trabajadores;
 		this.tareas       = tareas;
+		this.debugger = new Debugger(herramientas,trabajadores,tareas);
 		// A�adir m�s variables si se desea
 	}
 
 	/**
 	 * MODIFICAR
 	 * Constructor auxiliar para la implementaci�n del algoritmo. Genera una copia de un nodo para introducirla en la OpenList
-	 */ 
+	 */
 	public Node(Node original) {
 		// Incluir todas las variables del nodo
 		this.cost        = original.cost;
@@ -52,69 +52,104 @@ public class Node {
 
 		// Se copian los objetos de los ArrayList a uno nuevo de este Nodo
 		// Si se necesita a�adir valores variables, como un ID, utilizar setters
-		ArrayList<Trabajador> trabajadores = new ArrayList<Trabajador>();
-		for (int i = 0; i < original.trabajadores.size(); i++) {
-			Trabajador trabajador = new Trabajador(original.trabajadores.get(i).getNombre(), original.trabajadores.get(i).getHabPodar(), original.trabajadores.get(i).getHabLimpiar(), original.trabajadores.get(i).getHabReparar());
-			trabajadores.add(trabajador);
-		}
-		this.trabajadores = trabajadores;
 		ArrayList<Herramienta> herramientas = new ArrayList<Herramienta>();
 		for (int i = 0; i < original.herramientas.size(); i++) {
 			Herramienta herramienta = new Herramienta(original.herramientas.get(i).getNombre(), original.herramientas.get(i).getTrabajo(), original.herramientas.get(i).getPeso(), original.herramientas.get(i).getMejora(), original.herramientas.get(i).getCantidad());
+			herramienta.setDisponibles(original.herramientas.get(i).getDisponibles());
 			herramientas.add(herramienta);
 		}
 		this.herramientas = herramientas;
+		ArrayList<Trabajador> trabajadores = new ArrayList<Trabajador>();
+		for (int i = 0; i < original.trabajadores.size(); i++) {
+			Trabajador trabajador = new Trabajador(original.trabajadores.get(i).getNombre(), original.trabajadores.get(i).getHabPodar(), original.trabajadores.get(i).getHabLimpiar(), original.trabajadores.get(i).getHabReparar());
+			for(int j = 0 ; j<original.herramientas.size(); j++){
+				if(original.herramientas.get(j) == original.getTrabajadores().get(i).getHerramienta()){
+					trabajador.setHerramienta(herramientas.get(j));
+					break;
+				}
+			}
+			trabajador.setMinutosTrabajados(original.trabajadores.get(i).getMinutosTrabajados());
+			trabajador.setUnidadesTrabajadas(original.trabajadores.get(i).getUnidadesTrabajadas());
+			trabajador.setArea(original.trabajadores.get(i).getArea());
+			trabajadores.add(trabajador);
+		}
+		this.trabajadores = trabajadores;
 		ArrayList<Tarea> tareas = new ArrayList<Tarea>();
 		for (int i = 0; i < original.tareas.size(); i++) {
 			Tarea tarea = new Tarea(original.tareas.get(i).getTipo(), original.tareas.get(i).getArea().toString(), original.tareas.get(i).getUnidades());
 			tareas.add(tarea);
 		}
 		this.tareas = tareas;
+		this.debugger = new Debugger(herramientas,trabajadores,tareas);
 	}
 
 	/**
 	 * Constructor auxiliar para generar el primer nodo de la lista abierta
-	 */ 
+	 */
 	public Node() {	}
 
 	/**
-	 *  Calcula el valor de la heuristica del problema para el nodo 
+	 *  Calcula el valor de la heuristica del problema para el nodo
 	 *  MODIFICAR
 	 * @param finalNode - El nodo sobre el que calcular la heur�stica
 	 * this.heuristica  - Resultado
 	 */
 	public void computeHeuristic(Node finalNode) {
-		// MODIFICAR para ajustarse a las necesidades del problema
 		this.heuristic = 0;
+		for(Tarea tarea : tareas){
+			/*switch (tarea.getTipo()) {
+				case "podar":
+					this.heuristic += (double) (tarea.getUnidades() * 60) / trabajadores.get(0).getHabPodar();
+					break;
+				case "limpiar":
+					this.heuristic += (double) (tarea.getUnidades() * 60) / trabajadores.get(0).getHabLimpiar();
+					break;
+				case "reparar":
+					this.heuristic += (double) (tarea.getUnidades() * 60) / trabajadores.get(0).getHabReparar();
+					break;
+			}*/
+			heuristic += tarea.getUnidades();
+		}
+		this.heuristic += Informacion.getCoste(trabajadores.get(0).getArea(), Areas.A, 0);
 	}
 
 	/**
 	 * Comprobaci�n de que la informaci�n de un nodo es equivalente a la de otro nodo
 	 * Solo comparar la informaci�n necesaria para ver si es el mismo estado del problema
-	 * 
+	 *
 	 * @param other - el nodo con el que comparar this
 	 * @return true: son iguales. false: no lo son
 	 */
 	public boolean equals(Node other) {
-		boolean check = true; // 
-		// MODIFICAR la condici�n para ajustarse a las necesidades del problema
-		return check;
+		for(int indice = 0; indice < herramientas.size(); indice++){
+			if(herramientas.get(indice).getDisponibles() != other.getHerramientas().get(indice).getDisponibles()) return false;
+		}
+		for(int indice = 0; indice < tareas.size(); indice++){
+			if(tareas.get(indice).getUnidades() != other.getTareas().get(indice).getUnidades()) return false;
+		}
+		for(int indice = 0; indice < trabajadores.size(); indice++){
+			//if(trabajadores.get(indice).getMinutosTrabajados() != other.getTrabajadores().get(indice).getMinutosTrabajados()) return false;
+			//if(trabajadores.get(indice).getUnidadesTrabajadas() != other.getTrabajadores().get(indice).getUnidadesTrabajadas()) return false;
+			if(trabajadores.get(indice).getArea() != other.getTrabajadores().get(indice).getArea()) return false;
+			if(trabajadores.get(indice).getHerramienta() != other.getTrabajadores().get(indice).getHerramienta()) return false;
+		}
+		return true;
 	}
 
 
 	/**
 	 * Impresi�n de la informaci�n del nodo
-	 * @param printDebug. Permite seleccionar cu�ntos mensajes imprimir
+	 * @param printDebug . Permite seleccionar cu�ntos mensajes imprimir
 	 */
 	public void printNodeData(int printDebug) {
-		
+		getDebugger().printTrabajadores();
 	}
 
 	/**
-	 * Ejecuta la funci�n de evaluacion del problema para el nodo. IMPORTANTE: ejecutar despu�s el c�lculo del coste y heur�stica
+	 * Ejecuta la funci�n de evaluacion del problema para el nodo. IMPORTANTE: ejecutar despu�s de el c�lculo del coste y heur�stica
 	 */
 	public void computeEvaluation() {
-		this.evaluation = this.cost + this.heuristic; 
+		this.evaluation = this.cost + this.heuristic;
 	}
 
 	/**** Getters y Setters ****/
@@ -168,6 +203,10 @@ public class Node {
 	}
 	public void setNextNode(Node nextNode) {
 		this.nextNodeList = nextNode;
+	}
+
+	public Debugger getDebugger() {
+		return debugger;
 	}
 }
 
