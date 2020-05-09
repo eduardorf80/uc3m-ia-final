@@ -96,21 +96,30 @@ public class Node {
 	 */
 	public void computeHeuristic(Node finalNode) {
 		this.heuristic = 0;
-		for(Tarea tarea : tareas){
-			/*switch (tarea.getTipo()) {
-				case "podar":
-					this.heuristic += (double) (tarea.getUnidades() * 60) / trabajadores.get(0).getHabPodar();
-					break;
-				case "limpiar":
-					this.heuristic += (double) (tarea.getUnidades() * 60) / trabajadores.get(0).getHabLimpiar();
-					break;
-				case "reparar":
-					this.heuristic += (double) (tarea.getUnidades() * 60) / trabajadores.get(0).getHabReparar();
-					break;
-			}*/
-			heuristic += tarea.getUnidades();
+		int media = 0;
+		for (Trabajador trabajador: trabajadores) {
+			media += trabajador.getMinutosTrabajados();
 		}
-		this.heuristic += Informacion.getCoste(trabajadores.get(0).getArea(), Areas.A, 0);
+		media = media/trabajadores.size();
+
+		for(Trabajador trabajador : trabajadores){
+			this.heuristic += Informacion.getCoste(trabajador.getArea(), Areas.A, (trabajador.getHerramienta() == null)?0:trabajador.getHerramienta().getPeso());
+			this.heuristic += Math.abs(trabajador.getMinutosTrabajados() - media)*9.75;
+			for(Tarea tarea : tareas){
+				switch (tarea.getTipo()) {
+					case "podar":
+						this.heuristic += (double) (tarea.getUnidades() * 60) / trabajador.getHabPodar();
+						break;
+					case "limpiar":
+						this.heuristic += (double) (tarea.getUnidades() * 60) / trabajador.getHabLimpiar();
+						break;
+					case "reparar":
+						this.heuristic += (double) (tarea.getUnidades() * 60) / trabajador.getHabReparar();
+						break;
+				}
+			}
+		}
+
 	}
 
 	/**
@@ -128,10 +137,14 @@ public class Node {
 			if(tareas.get(indice).getUnidades() != other.getTareas().get(indice).getUnidades()) return false;
 		}
 		for(int indice = 0; indice < trabajadores.size(); indice++){
-			//if(trabajadores.get(indice).getMinutosTrabajados() != other.getTrabajadores().get(indice).getMinutosTrabajados()) return false;
-			//if(trabajadores.get(indice).getUnidadesTrabajadas() != other.getTrabajadores().get(indice).getUnidadesTrabajadas()) return false;
+
 			if(trabajadores.get(indice).getArea() != other.getTrabajadores().get(indice).getArea()) return false;
-			if(trabajadores.get(indice).getHerramienta() != other.getTrabajadores().get(indice).getHerramienta()) return false;
+			if(trabajadores.get(indice).getHerramienta() == null ^ other.getTrabajadores().get(indice).getHerramienta() == null ){
+				return false;
+			}else if(trabajadores.get(indice).getHerramienta() != null && other.getTrabajadores().get(indice).getHerramienta() !=null){
+				if(!trabajadores.get(indice).getHerramienta().getNombre().equals(other.getTrabajadores().get(indice).getHerramienta().getNombre()))
+					return false;
+			}
 		}
 		return true;
 	}
@@ -142,7 +155,7 @@ public class Node {
 	 * @param printDebug . Permite seleccionar cu�ntos mensajes imprimir
 	 */
 	public void printNodeData(int printDebug) {
-		getDebugger().printTrabajadores();
+		//getDebugger().printTrabajadores();
 	}
 
 	/**

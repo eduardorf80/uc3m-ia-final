@@ -114,6 +114,7 @@ public class OpenList {
 	/**
 	 * NO MODIFICAR
 	 * Obtener el tamaño de la lista
+	 *
 	 * @return
 	 */
 	public int getSize() {

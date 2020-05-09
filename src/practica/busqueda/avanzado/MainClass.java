@@ -23,8 +23,8 @@ public class MainClass {
 	/**
 	 * Ejecuta la solución del problema avanzado con un algoritmo de búsqueda
 	 * MODIFICAR
-	 * @param args[0]: Ruta del fichero a ejecutar
-	 * @param args[1]: Número de debug a utilizar
+	 * @param args [0]: Ruta del fichero a ejecutar
+	 * @param args [1]: Número de debug a utilizar
 	 */
 	public static void main(String[] args) throws IOException {
 		
@@ -115,7 +115,9 @@ public class MainClass {
 		System.out.println("************** IMPRESION DE METRICAS **************");
 		System.out.println("La ejecución ha tardado: "+executionTime +" segundos");
 		System.out.println("\u001B[32m"+"Se han explorado " + aStar.getClosedList().size() + " nodos y se pueden " + aStar.getOpenList().getSize() + " nodos adyacentes, por lo que se han generado en total " + (aStar.getClosedList().size() + aStar.getOpenList().getSize()) + " nodos." + "\u001B[0m");
-		System.out.println("\u001B[33m"+"Antonio ha trabajado " + (int)Math.round(aStar.getGoalNode().getTrabajadores().get(0).getMinutosTrabajados()) + " minutos que son " + String.format("%.2f", aStar.getGoalNode().getTrabajadores().get(0).getMinutosTrabajados()/60) + " horas." + "\u001B[0m");
+		for(Trabajador trabajador : aStar.getGoalNode().getTrabajadores()){
+			System.out.println("\u001B[33m" + trabajador.getNombre() + " ha trabajado " + (int)Math.round(trabajador.getMinutosTrabajados()) + " minutos que son " + String.format("%.2f", trabajador.getMinutosTrabajados()/60) + " horas." + "\u001B[0m");
+		}
 
 	}
 
