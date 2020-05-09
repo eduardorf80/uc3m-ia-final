@@ -104,11 +104,12 @@ public class Node {
 
 		for(Trabajador trabajador : trabajadores){
 			this.heuristic += Informacion.getCoste(trabajador.getArea(), Areas.A, (trabajador.getHerramienta() == null)?0:trabajador.getHerramienta().getPeso());
-			this.heuristic += Math.abs(trabajador.getMinutosTrabajados() - media)*9.75;
+			this.heuristic += Math.abs(trabajador.getMinutosTrabajados() - media)*5;
 			for(Tarea tarea : tareas){
 				switch (tarea.getTipo()) {
 					case "podar":
 						this.heuristic += (double) (tarea.getUnidades() * 60) / trabajador.getHabPodar();
+						this.heuristic += (double) (tarea.getUnidades() * 60) / trabajador.getHabLimpiar();
 						break;
 					case "limpiar":
 						this.heuristic += (double) (tarea.getUnidades() * 60) / trabajador.getHabLimpiar();
@@ -155,7 +156,9 @@ public class Node {
 	 * @param printDebug . Permite seleccionar cu�ntos mensajes imprimir
 	 */
 	public void printNodeData(int printDebug) {
-		//getDebugger().printTrabajadores();
+		if(printDebug == 2){
+			getDebugger().printTrabajadores();
+		}
 	}
 
 	/**

@@ -25,7 +25,6 @@ public class AStar {
 	private Node initialNode;										// Nodo inicial del problema
 	private Node goalNode;											// Nodo meta del problema
 	private boolean findGoal;										// Se ha encontrado la meta
-	int contador = 0;
 
 	/**
 	 * Insertamos en la lista de nodos abiertos los nodos seg�n las acciones que se pueden realizar en este instante
@@ -112,6 +111,14 @@ public class AStar {
 						NodoHijo.getTrabajadores().get(indexTrabajador).setMinutosTrabajados(tarea.getArea(), tarea.getUnidades(), 0);
 						NodoHijo.getTrabajadores().get(indexTrabajador).setArea(tarea.getArea());
 						NodoHijo.setCoste(NodoHijo.getCost() + (NodoHijo.getTrabajadores().get(indexTrabajador).getMinutosTrabajados() - trabajador.getMinutosTrabajados()));
+						if(tarea.getTipo().equals("podar")){
+							for(Tarea tarea1 : NodoHijo.getTareas()){
+								if(tarea1.getArea()==tarea.getArea() && tarea1.getTipo().equals("limpiar")){
+									tarea1.setUnidades(tarea1.getUnidades()+tarea.getUnidades());
+									break;
+								}
+							}
+						}
 						if(checkNode(NodoHijo)){
 							NodoHijo.computeHeuristic(goalNode);
 							NodoHijo.computeEvaluation();
@@ -124,6 +131,7 @@ public class AStar {
 					indexTarea++;
 				}
 			}
+			//Volver al almacen a dejar la herramienta si no quedan tareas del tipo de herramienta que tienes
 			if(!encontrado && trabajador.getHerramienta() != null){
 				Node NodoHijo = new Node(currentNode);
 				NodoHijo.getTrabajadores().get(indexTrabajador).setMinutosTrabajados("A");
@@ -218,9 +226,6 @@ public class AStar {
 			}
 		}
 		return expandirNodo;				// false en el caso de que el nodo se haya visitado, indicando que no hay que expandirlo
-	}
-	public void printOpenList(){
-		System.out.println(openList.getSize());
 	}
 
 	/**
