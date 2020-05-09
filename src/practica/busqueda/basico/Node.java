@@ -128,10 +128,13 @@ public class Node {
 			if(tareas.get(indice).getUnidades() != other.getTareas().get(indice).getUnidades()) return false;
 		}
 		for(int indice = 0; indice < trabajadores.size(); indice++){
-			//if(trabajadores.get(indice).getMinutosTrabajados() != other.getTrabajadores().get(indice).getMinutosTrabajados()) return false;
-			//if(trabajadores.get(indice).getUnidadesTrabajadas() != other.getTrabajadores().get(indice).getUnidadesTrabajadas()) return false;
 			if(trabajadores.get(indice).getArea() != other.getTrabajadores().get(indice).getArea()) return false;
-			if(trabajadores.get(indice).getHerramienta() != other.getTrabajadores().get(indice).getHerramienta()) return false;
+			if(trabajadores.get(indice).getHerramienta() == null ^ other.getTrabajadores().get(indice).getHerramienta() == null ){
+				return false;
+			}else if(trabajadores.get(indice).getHerramienta() != null && other.getTrabajadores().get(indice).getHerramienta() !=null){
+				if(!trabajadores.get(indice).getHerramienta().getNombre().equals(other.getTrabajadores().get(indice).getHerramienta().getNombre()))
+					return false;
+			}
 		}
 		return true;
 	}

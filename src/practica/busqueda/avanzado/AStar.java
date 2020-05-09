@@ -25,13 +25,48 @@ public class AStar {
 	private Node initialNode;										// Nodo inicial del problema
 	private Node goalNode;											// Nodo meta del problema
 	private boolean findGoal;										// Se ha encontrado la meta
+	int contador = 0;
 
 	/**
 	 * Insertamos en la lista de nodos abiertos los nodos seg�n las acciones que se pueden realizar en este instante
 	 * MODIFICAR
 	 * @param currentNode - el nodo actual
 	 */
+	/*
+	private void addAdjacentNodes(Node currentNode) {
+		Node newNode = new Node(currentNode);
+		ArrayList<Trabajador> trabajadores  = newNode.getTrabajadores();
+		ArrayList<Herramienta> herramientas = newNode.getHerramientas();
+		ArrayList<Tarea> tareas             = newNode.getTareas();
+		for (int indTrab = 0;  indTrab < trabajadores.size(); indTrab++){
+			//Se encuentra en el almacen sin herramienta
+			checkpoint:
+			if(trabajadores.get(indTrab).getArea() == Areas.A && trabajadores.get(indTrab).getHerramienta() == null){
+				for(String habmax : trabajadores.get(indTrab).getHabMax()){
+					for(Tarea tarea : tareas){
+						if(tarea.getUnidades() > 0 && tarea.getTipo().equals(habmax)){
+							for(Herramienta herramienta : herramientas){
+								if(herramienta.getDisponibles() > 0 && herramienta.getTrabajo().equals(tarea.getTipo())){
+									trabajadores.get(indTrab).setHerramienta(herramienta);
+									herramienta.cogerHerramienta();
+									break checkpoint;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		if(checkNode(newNode)){
+			newNode.computeHeuristic(goalNode);
+			newNode.computeEvaluation();
+			newNode.setParent(currentNode);
+			newNode.setNextNode(null);
+			openList.insertAtEvaluation(newNode);
+		}
 
+
+	}*/
 	private void addAdjacentNodes(Node currentNode) {
 		ArrayList<Trabajador> trabajadores  = currentNode.getTrabajadores();
 		ArrayList<Herramienta> herramientas = currentNode.getHerramientas();
@@ -45,8 +80,10 @@ public class AStar {
 					for (Tarea tarea : tareas){
 						if(tarea.getTipo().equals(habilidad) && tarea.getUnidades() > 0){
 							Node NodoHijo = new Node(currentNode);
+							int indexHerramienta = 0;
 							for(Herramienta herramienta : NodoHijo.getHerramientas()){
-								if(herramienta.getTrabajo().equals(habilidad) && herramienta.getMejora() == 0) {
+								if(herramienta.getDisponibles() > 0 && herramienta.getTrabajo().equals(habilidad) ) {
+									NodoHijo.getHerramientas().get(indexHerramienta).cogerHerramienta();
 									NodoHijo.getTrabajadores().get(indexTrabajador).setHerramienta(herramienta);
 									if(checkNode(NodoHijo)){
 										NodoHijo.computeHeuristic(goalNode);
@@ -56,6 +93,7 @@ public class AStar {
 										openList.insertAtEvaluation(NodoHijo);
 									}
 								}
+								indexHerramienta ++;
 							}
 							break habilidadisponible;
 						}
@@ -70,6 +108,7 @@ public class AStar {
 					if (tarea.getTipo().equals(trabajador.getHerramienta().getTrabajo()) && tarea.getUnidades() > 0){
 						Node NodoHijo = new Node(currentNode);
 						NodoHijo.getTareas().get(indexTarea).setUnidades(0);
+						NodoHijo.getTrabajadores().get(indexTrabajador).setTareas(NodoHijo.getTareas());
 						NodoHijo.getTrabajadores().get(indexTrabajador).setMinutosTrabajados(tarea.getArea(), tarea.getUnidades(), 0);
 						NodoHijo.getTrabajadores().get(indexTrabajador).setArea(tarea.getArea());
 						NodoHijo.setCoste(NodoHijo.getCost() + (NodoHijo.getTrabajadores().get(indexTrabajador).getMinutosTrabajados() - trabajador.getMinutosTrabajados()));
@@ -88,6 +127,12 @@ public class AStar {
 			if(!encontrado && trabajador.getHerramienta() != null){
 				Node NodoHijo = new Node(currentNode);
 				NodoHijo.getTrabajadores().get(indexTrabajador).setMinutosTrabajados("A");
+				for(Herramienta herramienta : NodoHijo.getHerramientas()){
+					if(herramienta.getNombre().equals(NodoHijo.getTrabajadores().get(indexTrabajador).getHerramienta().getNombre())){
+						herramienta.dejarHerramienta();
+						break;
+					}
+				}
 				NodoHijo.getTrabajadores().get(indexTrabajador).setHerramienta();
 				NodoHijo.getTrabajadores().get(indexTrabajador).setArea(Areas.A);
 				NodoHijo.setCoste(NodoHijo.getCost() + (NodoHijo.getTrabajadores().get(indexTrabajador).getMinutosTrabajados() - trabajador.getMinutosTrabajados()));
