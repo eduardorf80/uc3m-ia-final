@@ -83,6 +83,7 @@ public class MainClass {
 		for (int i = 0; i < herramientas.size(); i++) kb.join(herramientas.get(i));
 		for (int i = 0; i < trabajadores.size(); i++) kb.join(trabajadores.get(i));
 		for (int i = 0; i < tareas.size(); i++) kb.join(tareas.get(i));
+		//Añadimos el debugger a la base de hechos para poderlo llamar desde el regls.rules
 		Debugger debugger = new Debugger(herramientas,trabajadores,tareas);
 		kb.join(debugger);
 
@@ -114,6 +115,7 @@ public class MainClass {
 	 */
 	public static void printState(ArrayList<Herramienta> herramientas, ArrayList<Trabajador> trabajadores, ArrayList<Tarea> tareas) {
 		System.out.println("************** IMPRESION DEL ESTADO **************");
+		//Muestra los tiempos de los trabajadores tanto en minutos como en horas
 		for (Trabajador trabajador:trabajadores) {
 			System.out.println("\u001B[33m" + String.format("%-8s",trabajador.getNombre()) + " ha trabajado " + (int)Math.round(trabajador.getMinutosTrabajados()) + " minutos, que son "+ String.format("%.2f", trabajador.getMinutosTrabajados() / 60) + " horas." + "\u001B[0m");
 		}
