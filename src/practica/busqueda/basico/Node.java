@@ -110,7 +110,7 @@ public class Node {
 					break;
 			}
 		}
-		this.heuristic += Informacion.getCoste(trabajadores.get(0).getArea(), Areas.A, 0);
+		//this.heuristic += 0.01*Informacion.getCoste(trabajadores.get(0).getArea(), Areas.A, 0);
 	}
 
 	/**
