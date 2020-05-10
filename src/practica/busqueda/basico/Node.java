@@ -55,6 +55,7 @@ public class Node {
 		ArrayList<Herramienta> herramientas = new ArrayList<Herramienta>();
 		for (int i = 0; i < original.herramientas.size(); i++) {
 			Herramienta herramienta = new Herramienta(original.herramientas.get(i).getNombre(), original.herramientas.get(i).getTrabajo(), original.herramientas.get(i).getPeso(), original.herramientas.get(i).getMejora(), original.herramientas.get(i).getCantidad());
+			//Copiamos el valor de herramientas disponibles (aunque en el basico no se usa)
 			herramienta.setDisponibles(original.herramientas.get(i).getDisponibles());
 			herramientas.add(herramienta);
 		}
@@ -62,18 +63,21 @@ public class Node {
 		ArrayList<Trabajador> trabajadores = new ArrayList<Trabajador>();
 		for (int i = 0; i < original.trabajadores.size(); i++) {
 			Trabajador trabajador = new Trabajador(original.trabajadores.get(i).getNombre(), original.trabajadores.get(i).getHabPodar(), original.trabajadores.get(i).getHabLimpiar(), original.trabajadores.get(i).getHabReparar());
+			//Seteamos la herramienta del trabajador, para eso tenemos que buscarla en el nuevo array de herramientas para que no apunte al array viejo
 			for(int j = 0 ; j<original.herramientas.size(); j++){
 				if(original.herramientas.get(j) == original.getTrabajadores().get(i).getHerramienta()){
 					trabajador.setHerramienta(herramientas.get(j));
 					break;
 				}
 			}
+			//Copiamos los minutos trabajados las unidades y el area del trabajador
 			trabajador.setMinutosTrabajados(original.trabajadores.get(i).getMinutosTrabajados());
 			trabajador.setUnidadesTrabajadas(original.trabajadores.get(i).getUnidadesTrabajadas());
 			trabajador.setArea(original.trabajadores.get(i).getArea());
 			trabajadores.add(trabajador);
 		}
 		this.trabajadores = trabajadores;
+		//Las tareas no hay que copiar nada nuevo ya que no las hemos tocado
 		ArrayList<Tarea> tareas = new ArrayList<Tarea>();
 		for (int i = 0; i < original.tareas.size(); i++) {
 			Tarea tarea = new Tarea(original.tareas.get(i).getTipo(), original.tareas.get(i).getArea().toString(), original.tareas.get(i).getUnidades());
@@ -96,6 +100,7 @@ public class Node {
 	 */
 	public void computeHeuristic(Node finalNode) {
 		this.heuristic = 0;
+		//Calculamos la estimacion de tiempo que nos va a llevar realizar las tareas restantes
 		for(Tarea tarea : tareas){
 			switch (tarea.getTipo()) {
 				case "podar":
@@ -120,12 +125,16 @@ public class Node {
 	 * @return true: son iguales. false: no lo son
 	 */
 	public boolean equals(Node other) {
+		//Comparamos que el numero de herramientas disponible sea igual(aunque en el problema basico no se tiene en cuenta el numero de herramientas)
 		for(int indice = 0; indice < herramientas.size(); indice++){
 			if(herramientas.get(indice).getDisponibles() != other.getHerramientas().get(indice).getDisponibles()) return false;
 		}
+		//Se comprueba las unidades de las tareas
 		for(int indice = 0; indice < tareas.size(); indice++){
 			if(tareas.get(indice).getUnidades() != other.getTareas().get(indice).getUnidades()) return false;
 		}
+		//comprobamos el area
+		//comprobamos que el tipo de herramienta sea el mismo
 		for(int indice = 0; indice < trabajadores.size(); indice++){
 			if(trabajadores.get(indice).getArea() != other.getTrabajadores().get(indice).getArea()) return false;
 			if(trabajadores.get(indice).getHerramienta() == null ^ other.getTrabajadores().get(indice).getHerramienta() == null ){
@@ -144,17 +153,20 @@ public class Node {
 	 * @param printDebug . Permite seleccionar cu�ntos mensajes imprimir
 	 */
 	public void printNodeData(int printDebug) {
+		//Comprobamos cuanta informacion quiere, si es 0 no hacemos nada
 		switch (printDebug){
-		case 1:
-			System.out.println("\u001B[31m" + "El nodo actual tiene un coste de " + this.getCost() + " una heuristica de " + this.getHeuristic() + " que resulta en un evaluacion de " + this.getEvaluation() + "\u001B[0m");
-			getDebugger().printTrabajadores();
-			break;
-		case 2:
-			System.out.println("\u001B[31m" + "El nodo actual tiene un coste de " + this.getCost() + " una heuristica de " + this.getHeuristic() + " que resulta en un evaluacion de " + this.getEvaluation() + "\u001B[0m");
-			getDebugger().printTrabajadores();
-			getDebugger().printHerramientas();
-			getDebugger().printTareas(true);
-			break;
+			//Imprimimos la informacion del nodo, y hacemos uso del debugger para imprimir el estado de los trabajadores
+			case 1:
+				System.out.println("\u001B[31m" + "El nodo actual tiene un coste de " + this.getCost() + " una heuristica de " + this.getHeuristic() + " que resulta en un evaluacion de " + this.getEvaluation() + "\u001B[0m");
+				getDebugger().printTrabajadores();
+				break;
+			//Imprimimos toda la informacion anterior mas la informacion de las tareas y las herramientas
+			case 2:
+				System.out.println("\u001B[31m" + "El nodo actual tiene un coste de " + this.getCost() + " una heuristica de " + this.getHeuristic() + " que resulta en un evaluacion de " + this.getEvaluation() + "\u001B[0m");
+				getDebugger().printTrabajadores();
+				getDebugger().printHerramientas();
+				getDebugger().printTareas(true);
+				break;
 		}
 	}
 
