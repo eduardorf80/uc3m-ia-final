@@ -49,12 +49,13 @@ public class AStar {
 						if(tarea.getUnidades() > 0 && tarea.getTipo().equals(habilidad)){
 							//Creamos el nuevo nodo
 							Node NodoHijo = new Node(currentNode);
+							int indexHerramienta = 0;
 							//Buscamos a ver si hay herramientas disponibles para ese tipo de tarea
 							for(Herramienta herramienta : NodoHijo.getHerramientas()){
 								if(herramienta.getDisponibles() > 0 && herramienta.getTrabajo().equals(habilidad) ) {
 									//Si la hay se la seateamos al trabajador y restamos una unidad
 									NodoHijo.getTrabajadores().get(indexTrabajador).setHerramienta(herramienta);
-									NodoHijo.getTrabajadores().get(indexTrabajador).getHerramienta().cogerHerramienta();
+									herramienta.cogerHerramienta();
 									//Si el nodo no existe procedemos a añadirlo
 									if(checkNode(NodoHijo)){
 										//calculamos la heuristica y la evaluacion
@@ -67,6 +68,7 @@ public class AStar {
 										openList.insertAtEvaluation(NodoHijo);
 									}
 								}
+								indexHerramienta ++;
 							}
 							//Si se ha encontrado tareas del tipo correcto terminamos ese bucle
 							//No optimiza en minutos pero si en nodos
