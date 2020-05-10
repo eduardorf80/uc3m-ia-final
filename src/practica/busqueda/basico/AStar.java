@@ -112,7 +112,7 @@ public class AStar {
 					//Creamos el nuevo nodo
 					Node NodoHijo = new Node(currentNode);
 					//Movemos al trabajador, calculamos los minutos empleadoes en el desplazamiento
-					NodoHijo.getTrabajadores().get(indexTrabajador).setMinutosTrabajados("A");
+					NodoHijo.getTrabajadores().get(indexTrabajador).setMinutosTrabajados("A", 0);
 					NodoHijo.getTrabajadores().get(indexTrabajador).setHerramienta();
 					NodoHijo.getTrabajadores().get(indexTrabajador).setArea(Areas.A);
 					//Calculamos el coste del nuevo nodo

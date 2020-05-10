@@ -178,7 +178,7 @@ rule Trabajador_con_Herramienta_sin_tarea{		//
         !tr1.getArea().toString().equals("A");  // - Que el trabajador no se encuentre en el almacén
         !tr1.isAvailable();
     actions										// Acciones:
-        tr1.setMinutosTrabajados("A");			// Calculamos el coste de ir al almacén, y se lo añadimos a los minutos trabajados del trabajador
+        tr1.setMinutosTrabajados("A", 1);			// Calculamos el coste de ir al almacén, y se lo añadimos a los minutos trabajados del trabajador
         tr1.setArea("A");						// Movemos al trabajador al almacén
         tr1.getHerramienta().dejarHerramienta();
         tr1.setHerramienta();				// Le quitamos la herramienta al trabajador, se la ponemos a null
