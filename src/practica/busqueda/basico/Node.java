@@ -144,8 +144,17 @@ public class Node {
 	 * @param printDebug . Permite seleccionar cu�ntos mensajes imprimir
 	 */
 	public void printNodeData(int printDebug) {
-		if (printDebug != 0){
+		switch (printDebug){
+		case 1:
+			System.out.println("\u001B[31m" + "El nodo actual tiene un coste de " + this.getCost() + " una heuristica de " + this.getHeuristic() + " que resulta en un evaluacion de " + this.getEvaluation() + "\u001B[0m");
 			getDebugger().printTrabajadores();
+			break;
+		case 2:
+			System.out.println("\u001B[31m" + "El nodo actual tiene un coste de " + this.getCost() + " una heuristica de " + this.getHeuristic() + " que resulta en un evaluacion de " + this.getEvaluation() + "\u001B[0m");
+			getDebugger().printTrabajadores();
+			getDebugger().printHerramientas();
+			getDebugger().printTareas(true);
+			break;
 		}
 	}
 

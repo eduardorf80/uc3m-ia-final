@@ -102,7 +102,8 @@ public class MainClass {
 		for (Node node:path) {
 			node.printNodeData(2);	// printDebug = 2
 		}
-		System.out.println(path.size());
+		System.out.println("\u001B[32m" + "El path final se compone de " + path.size() + " nodos."+"\u001B[0m");
+		System.out.println("\u001B[32m" + "Que es un " + Math.round((double)path.size() * 100 / aStar.getClosedList().size())+ "% de los nodos explorados." + "\u001B[0m");
 		System.out.println();
 	}
 
@@ -116,6 +117,7 @@ public class MainClass {
 		System.out.println("************** IMPRESION DE METRICAS **************");
 		System.out.println("La ejecución ha tardado: "+executionTime +" segundos");
 		System.out.println("\u001B[32m"+"Se han explorado " + aStar.getClosedList().size() + " nodos y se pueden explorar " + aStar.getOpenList().getSize() + " nodos adyacentes, por lo que se han generado en total " + (aStar.getClosedList().size() + aStar.getOpenList().getSize()) + " nodos." + "\u001B[0m");
+
 		for(Trabajador trabajador : aStar.getGoalNode().getTrabajadores()){
 			System.out.println("\u001B[33m" + String.format("%-8s",trabajador.getNombre()) + " ha trabajado " + (int)Math.round(trabajador.getMinutosTrabajados()) + " minutos que son " + String.format("%.2f", trabajador.getMinutosTrabajados()/60) + " horas." + "\u001B[0m");
 		}

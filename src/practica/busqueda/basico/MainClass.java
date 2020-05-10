@@ -102,7 +102,8 @@ public class MainClass {
 		for (Node node:path) {
 			node.printNodeData(2);	// printDebug = 2
 		}
-		//System.out.println(path.size()); @TODO Preguntar a los becarios y ponerlo bonito
+		System.out.println("\u001B[32m" + "El path final se compone de " + path.size() + " nodos."+"\u001B[0m");
+		System.out.println("\u001B[32m" + "Que es un " + Math.round((double)path.size() * 100 / aStar.getClosedList().size())+ "% de los nodos explorados." + "\u001B[0m");
 		System.out.println();
 	}
 
