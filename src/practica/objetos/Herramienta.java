@@ -15,7 +15,7 @@ public class Herramienta {
 	double peso;
 	int mejora;
 	int cantidad;
-	int disponibles;
+	int disponibles;//Almacena las herramientas disponibles
 	// A�ADIR LAS VARIABLES NECESARIAS
 
 	/**
@@ -30,7 +30,7 @@ public class Herramienta {
 		this.cantidad = cantidad;
 		// A�adir el estado inicial (est�tico) de las variables que se a�adan
 		// Si se necesita a�adir valores variables, como un ID, utilizar setters
-		this.disponibles = cantidad;
+		this.disponibles = cantidad;//Inicialmente son las mismas que la cantidad
 	}
 
 	/**
@@ -76,11 +76,10 @@ public class Herramienta {
 	public void setDisponibles(int Disponibles) {
 		this.disponibles = Disponibles;
 	}
-
+	//Coger y dejar las herramientas suma o resta una unidad a disponibles
 	public void cogerHerramienta(){
 		this.disponibles -= 1;
 	}
-
 	public void dejarHerramienta(){
 		this.disponibles += 1;
 	}

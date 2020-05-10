@@ -2,26 +2,30 @@ package practica.objetos;
 
 import java.util.ArrayList;
 
+/***********************************
+ * Esta clase no se pide pero ha sido desarrollada
+ * para poder comprobar el funcionamiento del problema
+ *
+ */
 public class Debugger {
     ArrayList<Herramienta> herramientas;
     ArrayList<Trabajador>  trabajadores;
     ArrayList<Tarea> tareas;
 
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_RED = "\u001B[31m";
+    //Constantes para mostrarlo con colores en la terminal
     public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_BLUE = "\u001B[34m";
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
     public static final String ANSI_RESET = "\u001B[0m";
 
+    //PAra crearlo necesita tener los tres arraylist para poder mostrar su informacion
     public Debugger(ArrayList<Herramienta> Herramientas,ArrayList<Trabajador>  Trabajadores,ArrayList<Tarea> Tareas){
         this.herramientas = Herramientas;
         this.trabajadores = Trabajadores;
         this.tareas = Tareas;
     }
+    //Muestra el estado actual de los trabajadores
     public void printTrabajadores(){
         System.out.println(ANSI_CYAN + "\nEstado actual de los trabajadores\n" + ANSI_RESET);
         for(Trabajador trabajador : trabajadores){
@@ -29,7 +33,12 @@ public class Debugger {
         }
         System.out.println();
     }
+    /**********************************************
+     * Muestra el estado actual de los trabajadores
+     * @param Todas si es true muestra todas las tareas sino solo las que tengan unidades restantes
+     */
     public void printTareas(boolean Todas){
+
         System.out.println(ANSI_CYAN + "\nEstado actual de las tareas\n" + ANSI_RESET);
         for (Tarea tarea: tareas) {
             if(Todas || tarea.getUnidades() > 0)
@@ -37,6 +46,11 @@ public class Debugger {
         }
         System.out.println();
     }
+    /**********************************************
+     * Muestra el estado actual de los trabajadores
+     * @param Todas si es true muestra todas las tareas sino solo las que tengan unidades restantes
+     * @param Tipo filtra por tipo de tarea, poda, limpieza o reparar
+     */
     public void printTareas(boolean Todas , String Tipo) {
         System.out.println(ANSI_CYAN + "\nEstado actual de las tareas\n" + ANSI_RESET);
         for (Tarea tarea : tareas) {
@@ -45,6 +59,7 @@ public class Debugger {
         }
         System.out.println();
     }
+    //Muestra el estado actual de las herramientas
     public void printHerramientas(){
         System.out.println(ANSI_CYAN + "\nEstado actual de las herramientas\n" + ANSI_RESET);
         for (Herramienta herramienta: herramientas){
