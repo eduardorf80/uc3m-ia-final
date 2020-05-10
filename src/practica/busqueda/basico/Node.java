@@ -157,12 +157,12 @@ public class Node {
 		switch (printDebug){
 			//Imprimimos la informacion del nodo, y hacemos uso del debugger para imprimir el estado de los trabajadores
 			case 1:
-				System.out.println("\u001B[31m" + "El nodo actual tiene un coste de " + this.getCost() + " una heuristica de " + this.getHeuristic() + " que resulta en un evaluacion de " + this.getEvaluation() + "\u001B[0m");
+				System.out.println("\u001B[31m" + "El nodo actual tiene un coste de " + Math.round(this.getCost()) + " una heuristica de " + Math.round(this.getHeuristic()) + " que resulta en un evaluacion de " + Math.round(this.getEvaluation() )+ "\u001B[0m");
 				getDebugger().printTrabajadores();
 				break;
 			//Imprimimos toda la informacion anterior mas la informacion de las tareas y las herramientas
 			case 2:
-				System.out.println("\u001B[31m" + "El nodo actual tiene un coste de " + this.getCost() + " una heuristica de " + this.getHeuristic() + " que resulta en un evaluacion de " + this.getEvaluation() + "\u001B[0m");
+				System.out.println("\u001B[31m" + "El nodo actual tiene un coste de " + Math.round(this.getCost()) + " una heuristica de " + Math.round(this.getHeuristic()) + " que resulta en un evaluacion de " + Math.round(this.getEvaluation() ) + "\u001B[0m");
 				getDebugger().printTrabajadores();
 				getDebugger().printHerramientas();
 				getDebugger().printTareas(true);
