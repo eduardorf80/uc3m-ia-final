@@ -43,7 +43,7 @@ public class MainClass {
 		else printDebug = 0; // Definir aquí el valor
 				
 		//----------------------------- Se carga el problema -----------------------------//
-		String problemPath = "problema.json"; // Problema en la misma ruta del paquete
+		String problemPath = "problema2.json"; // Problema en la misma ruta del paquete
 		InputStream isJSON;
 		// Si hay argumentos, se busca un fichero por parámetro. NO MODIFICAR
 		if (args.length > 0 && !args[0].equals("")) isJSON = new FileInputStream(args[0]);

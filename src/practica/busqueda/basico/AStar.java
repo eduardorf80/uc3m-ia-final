@@ -45,38 +45,56 @@ public class AStar {
 				//Salida del almacén
 				if(trabajador.getArea() == Areas.A && trabajador.getHerramienta() == null){
 					habilidadisponible:
+					//Buscamos tareas en funcion de sus habilidades
 					for(String habilidad : trabajador.getHabMax()){
 						for (Tarea tarea : tareas){
-							if(tarea.getTipo().equals(habilidad) && tarea.getUnidades() > 0){
+							//Si la tarea tiene unidades restantes y es del tipo correcto
+							if(tarea.getUnidades() > 0 && tarea.getTipo().equals(habilidad) ){
+								//Creamos el nuevo nodo
 								Node NodoHijo = new Node(currentNode);
+								//Buscamos la herramienta para este tipo de tarea sin mejora
 								for(Herramienta herramienta : NodoHijo.getHerramientas()){
-									if(herramienta.getTrabajo().equals(habilidad) && herramienta.getMejora() == 0) {
+									if( herramienta.getMejora() == 0 && herramienta.getTrabajo().equals(habilidad)) {
+										//Si la hay se la seateamos al trabajador
 										NodoHijo.getTrabajadores().get(indexTrabajador).setHerramienta(herramienta);
+										//Si el nodo no existe procedemos a añadirlo
 										if(checkNode(NodoHijo)){
+											//calculamos la heuristica y la evaluacion
 											NodoHijo.computeHeuristic(goalNode);
 											NodoHijo.computeEvaluation();
+											//Seteamos ak nodo padre y marcamos como null el sucesor
 											NodoHijo.setParent(currentNode);
 											NodoHijo.setNextNode(null);
+											//Lo añadimos de forma evaluada
 											openList.insertAtEvaluation(NodoHijo);
 										}
 									}
 								}
+								//Si se ha encontrado tareas del tipo correcto terminamos ese bucle
+								//No optimiza en minutos pero si en nodos
 								break habilidadisponible;
 							}
 						}
 					}
 				}
 				//Movimiento entre celdas
+				//Trabajdor con herramienta
 				boolean encontrado = false;
 				if(trabajador.getHerramienta() != null){
+					//Buscamos tareas que sean compatibles con el tipo de herramienta que porta el trabajador y tenga unidades restantes
 					int indexTarea = 0;
 					for (Tarea tarea : tareas){
 						if (tarea.getTipo().equals(trabajador.getHerramienta().getTrabajo()) && tarea.getUnidades() > 0){
+							//Creamos el nodo hijo
 							Node NodoHijo = new Node(currentNode);
+							//Restamos todas las unidades
 							NodoHijo.getTareas().get(indexTarea).setUnidades(0);
+							//Calculamos los minutos trabajados y despplazamos al trabajador al nuevo area
 							NodoHijo.getTrabajadores().get(indexTrabajador).setMinutosTrabajados(tarea.getArea(), tarea.getUnidades(), 0);
 							NodoHijo.getTrabajadores().get(indexTrabajador).setArea(tarea.getArea());
+							//Seteamos el coste del nuevo nodo
 							NodoHijo.setCoste(NodoHijo.getCost() + (NodoHijo.getTrabajadores().get(indexTrabajador).getMinutosTrabajados() - trabajador.getMinutosTrabajados()));
+							//Si el nodo no existe procedemos a añadirlo igual que antes
 							if(checkNode(NodoHijo)){
 								NodoHijo.computeHeuristic(goalNode);
 								NodoHijo.computeEvaluation();
@@ -89,12 +107,17 @@ public class AStar {
 						indexTarea++;
 					}
 				}
+				//Volver al almacen a dejar la herramienta si no quedan tareas del tipo de herramienta que tienes
 				if(!encontrado && trabajador.getHerramienta() != null){
+					//Creamos el nuevo nodo
 					Node NodoHijo = new Node(currentNode);
+					//Movemos al trabajador, calculamos los minutos empleadoes en el desplazamiento
 					NodoHijo.getTrabajadores().get(indexTrabajador).setMinutosTrabajados("A");
 					NodoHijo.getTrabajadores().get(indexTrabajador).setHerramienta();
 					NodoHijo.getTrabajadores().get(indexTrabajador).setArea(Areas.A);
+					//Calculamos el coste del nuevo nodo
 					NodoHijo.setCoste(NodoHijo.getCost() + (NodoHijo.getTrabajadores().get(indexTrabajador).getMinutosTrabajados() - trabajador.getMinutosTrabajados()));
+					//Si el nodo no existe procedemos a añadirlo igual que antes
 					if(checkNode(NodoHijo)){
 						NodoHijo.computeHeuristic(goalNode);
 						NodoHijo.computeEvaluation();
