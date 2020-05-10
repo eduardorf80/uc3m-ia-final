@@ -71,6 +71,7 @@ public class MainClass {
 		//-------- Se crean los inicializan los objetos para ejecutar la solución --------//
 		Node initialNode = new Node(null, herramientas, trabajadores, tareas);
 		Node goalNode    = new Node(initialNode);
+		//Modificamos el nodo meta que es tener todas las unidades a cero y otras consideraciones pero son comunes al inicial(explicado en memoria)
 		for(Tarea tarea : goalNode.getTareas()){
 			tarea.setUnidades(0);
 		}
