@@ -179,19 +179,28 @@ public class Trabajador {
 		return minutosTrabajados;
 	}
 
+	// El metodo te dice si la tarea que le pasas es la mas cercana al trabajador
 	public boolean isMin(Tarea Tarea){
+		//La tarea tiene que tener unidad restantes, ser del mismo tipo que la herramienta y tiene que estar disponible para ese trabajador
 		if( Tarea.getUnidades() > 0 && Tarea.getTipo().equals(herramienta.getTrabajo()) &&  Tarea.getDisponible(getNombre()) ){
+			//Para hallar el minimo de creamos una variable con su valor maximo
 			double minutos = Double.MAX_VALUE;
+			//Creamos una tarea para posteriormente guardar la minima
 			Tarea tareaMinima = null;
+			//Recorremos todas las tareas
 			for (Tarea tarea : tareas){
+				//comprobamos que tenga unidades restantes, que sea del tipo correacto y que este disponible para el trabajdor
 				if(tarea.getUnidades() > 0 && tarea.getTipo().equals(herramienta.getTrabajo()) && tarea.getDisponible(getNombre()) ){
-					if (Informacion.getCoste(getArea(),tarea.getArea(), herramienta.getPeso()) < minutos){
+					//Si el coste de desplazarse es menor que la que ya tenemos como minima se actualiza la minima
+					if(Informacion.getCoste(getArea(),tarea.getArea(), herramienta.getPeso()) < minutos){
 						tareaMinima = tarea;
 						minutos = Informacion.getCoste(getArea(),tarea.getArea(), herramienta.getPeso());
 					}
 				}
 			}
+			//Comprobamos que la que nos han pasado es la minima
 			if(Tarea == tareaMinima){
+				//Si lo es se la asignamos al trabajador y devolvemos true
 				Tarea.setAsignada(getNombre());
 				return true;
 			}
@@ -199,7 +208,8 @@ public class Trabajador {
 		}
 		return false;
 	}
-
+	//Devuelve true si hay alguna tarea disponible para el trabjador
+	//Es decir que es del mismo tipo que la herramienta, tiene unidades restantes y esta disponible para ese trabajador
 	public boolean isAvailable(){
 		for(Tarea tarea : tareas){
 			if(tarea.getUnidades() > 0 && tarea.getTipo().equals(herramienta.getTrabajo()) && tarea.getDisponible(getNombre()))
@@ -211,9 +221,10 @@ public class Trabajador {
 	public void setTareas(ArrayList<Tarea> Tareas){
 		this.tareas = Tareas;
 	}
-
+	//EStablece las unidades trabajadas
 	public void setUnidadesTrabajadas(Areas Area, int Unidades, int Avanzado){
 		unidadesTrabajadas += Unidades;
+		//Si es avanzado el problema tiene que sumar una unidad de limpieza donde halla podado
 		if(Avanzado == 1){
 			if(herramienta.getTrabajo().equals("podar")){//Si la tarea es de tipo poda
 				for (Tarea tarea : tareas ){//recorremos todas las tareas
