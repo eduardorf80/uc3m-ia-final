@@ -42,7 +42,6 @@ public class MainClass {
 		int printDebug; // Nivel de debug. Permite elegir la cantidad de mensajes a imprimir
 		if (args.length > 1) printDebug =  Integer.parseInt(args[1]);
 		else printDebug = 0; // Definir aquí el valor
-		printDebug = 2;
 		//----------------------------- Se carga el problema -----------------------------//
 		String problemPath = "problema.json"; // Problema en la misma ruta del paquete
 		InputStream isJSON;

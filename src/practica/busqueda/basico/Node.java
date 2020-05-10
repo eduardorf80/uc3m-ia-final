@@ -95,7 +95,6 @@ public class Node {
 	 * this.heuristica  - Resultado
 	 */
 	public void computeHeuristic(Node finalNode) {
-		//int uPodaRestantes, uLimpiezaRestantes, uReparacionRestantes;
 		this.heuristic = 0;
 		for(Tarea tarea : tareas){
 			switch (tarea.getTipo()) {
@@ -110,7 +109,7 @@ public class Node {
 					break;
 			}
 		}
-		//this.heuristic += 0.01*Informacion.getCoste(trabajadores.get(0).getArea(), Areas.A, 0);
+		//this.heuristic += Informacion.getCoste(trabajadores.get(0).getArea(), Areas.A, 0);
 	}
 
 	/**
@@ -145,7 +144,9 @@ public class Node {
 	 * @param printDebug . Permite seleccionar cu�ntos mensajes imprimir
 	 */
 	public void printNodeData(int printDebug) {
-		getDebugger().printTrabajadores();
+		if (printDebug != 0){
+			getDebugger().printTrabajadores();
+		}
 	}
 
 	/**

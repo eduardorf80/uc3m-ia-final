@@ -101,10 +101,10 @@ public class Node {
 			media += trabajador.getMinutosTrabajados();
 		}
 		media = media/trabajadores.size();
-
+		int desviacion = 0;
 		for(Trabajador trabajador : trabajadores){
 			this.heuristic += Informacion.getCoste(trabajador.getArea(), Areas.A, (trabajador.getHerramienta() == null)?0:trabajador.getHerramienta().getPeso());
-			this.heuristic += Math.abs(trabajador.getMinutosTrabajados() - media)*5;
+			desviacion += Math.pow((trabajador.getMinutosTrabajados() - media),2);
 			for(Tarea tarea : tareas){
 				switch (tarea.getTipo()) {
 					case "podar":
@@ -120,6 +120,7 @@ public class Node {
 				}
 			}
 		}
+		this.heuristic += (double) desviacion/(trabajadores.size()*6);
 
 	}
 
