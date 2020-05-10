@@ -1,0 +1,38 @@
+// **RECUERDA** PRIORIDAD EN FUNCI�N DEL ORDEN DE LAS REGLAS (LA SUPERIOR LA M�S PRIORITARIA)
+// Protipo 1 + tiene en cuenta las horas trabajadas
+rule Trabajador_en_el_Almacen {
+  declarations
+    practica.objetos.Trabajador tr1;
+    practica.objetos.Tarea ta1;
+    practica.objetos.Herramienta h1;
+  preconditions
+    tr1.getArea().toString().equals("A");
+    tr1.getHerramienta() == null;
+    ta1.getTipo().equals("podar");
+    ta1.getUnidades() > 0;
+  actions
+    tr1.setHerramienta("Tijeras_de_podar");
+    tr1.setMinutosTrabajados(ta1.getArea(),ta1.getUnidades());
+    tr1.setArea(ta1.getArea());
+    ta1.setUnidades(0);
+    modified(ta1);
+    modified(tr1);
+}
+
+rule Trabajador_con_Herramienta {
+  declarations
+    practica.objetos.Trabajador tr1;
+    practica.objetos.Tarea ta1;
+    practica.objetos.Herramienta h1;
+  preconditions
+    !tr1.getArea().toString().equals("A");
+    ta1.getUnidades() > 0;
+    ta1.getTipo().equals(tr1.getUso());
+  actions
+    tr1.setMinutosTrabajados(ta1.getArea() , ta1.getUnidades());
+    tr1.setArea(ta1.getArea());
+    ta1.setUnidades(0);
+    modified(ta1);
+    modified(tr1);
+}
+
